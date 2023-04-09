@@ -1,0 +1,43 @@
+@use "sass:list";
+@use "sass:map";
+
+// Z-index organization by elevation map.
+
+// The z-index value is assigned based on its position (index value) in the elevation map below. The last element in the list has the higher z-index value because that element have higher index value in the map.
+$main-layer-tree: (
+	header: (),
+	main: (),
+	footer: (),
+);
+
+@function foundIndexValue($layers-list) {
+	$found-index: null;
+	$elevation-map: $main-layer-tree;
+
+	@each $key in $layers-list {
+		@if (type-of($elevation-map) == "map") {
+			$found-index: index(map.keys($elevation-map), $key);
+			$elevation-map: map.get($elevation-map, $key);
+		}
+		@else {
+			$found-index: index($elevation-map, $key);
+		}
+
+		@if ($found-index == null) {
+			@error "'#{$key}' is not part of the elevation map: `#{$main-layer-tree}`";
+		}
+	}
+
+	@return $found-index;
+}
+
+@mixin layout-layer($position: relative, $layers...) {
+	$valid-positions-list: relative, absolute, fixed, sticky;
+
+	@if (list.index($valid-positions-list, $position) == null) {
+		@error "Position '#{$position}' is invalid.";
+	}
+
+	position: $position;
+	z-index: foundIndexValue($layers);
+}

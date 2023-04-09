@@ -1,0 +1,90 @@
+@use "sass:color";
+@use "sass:map";
+
+$palette--main: (
+	primary: #daa520,
+	complementary: #ca7520,
+	analog: #2152d9,
+) !default;
+
+$palette--dark: (
+	normal: (
+		100: #101010,
+		200: #171717,
+		300: #202020,
+		400: #272727,
+		500: #303030,
+	),
+	bluish: (
+		100: color.adjust(#101010, $blue: 5%),
+		200: color.adjust(#171717, $blue: 5%),
+		300: color.adjust(#202020, $blue: 5%),
+		400: color.adjust(#272727, $blue: 5%),
+		500: color.adjust(#303030, $blue: 5%),
+	),
+);
+
+$palette--light: (
+	normal: (
+		100: #eee,
+		200: #ddd,
+		300: #ccc,
+		400: #bbb,
+		500: #aaa,
+	),
+	bluish: (
+		100: color.adjust(#eee, $blue: 5%),
+		200: color.adjust(#ddd, $blue: 5%),
+		300: color.adjust(#ccc, $blue: 5%),
+		400: color.adjust(#bbb, $blue: 5%),
+		500: color.adjust(#aaa, $blue: 5%),
+	),
+);
+
+$font-size: (
+	100: 1.2rem,
+	200: 1.4rem,
+	300: 1.6rem,
+	400: 1.8rem,
+	500: 2rem,
+) !default;
+
+$font-stack: (
+	main: (
+		"Poppins",
+		sans-serif,
+	),
+	headings: (
+		"Montserrat",
+		sans-serif,
+	),
+	monospace: (
+		"Martian Mono",
+		monospace,
+	),
+);
+
+$dark-shadow: #00000033 !default;
+$darker-shadow: #00000066 !default;
+$light-shadow: #ffffff33 !default;
+$lighter-shadow: #ffffff66 !default;
+
+$max-width: 120rem !default;
+$min-height: 100vh !default;
+
+$media-queries-breakpoints: (
+	mobile: 480px,
+	tablet: 768px,
+	laptop: 1024px,
+	desktop: 1200px,
+) !default;
+
+$gradients: (
+	"chill": linear-gradient(135deg, #09e485 0%, #0291e3 100%),
+	"warm": linear-gradient(135deg, #ffb30b 0%, #f36a3e 100%),
+	"hot": linear-gradient(135deg, #f9445a 0%, #fd803f 100%),
+	"cold": linear-gradient(135deg, #3109e3 0%, #7902f0 100%),
+	"colder": linear-gradient(135deg, #2b1491 0%, #9a47ff 100%),
+);
+
+$gradients: () !default;

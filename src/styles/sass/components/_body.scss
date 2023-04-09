@@ -1,0 +1,6 @@
+body {
+	color: var(--color--text--body);
+	background: var(--color--background--body);
+
+	transition: background 250ms ease, color 250ms ease;
+}

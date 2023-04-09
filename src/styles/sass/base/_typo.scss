@@ -1,0 +1,41 @@
+@use "sass:map";
+
+@use "@sass-utils/variables";
+@use "@sass-utils/functions";
+
+// typography configuration
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-weight: normal;
+	font-size: map.get(variables.$font-size, 300);
+	font-family: map.get(variables.$font-stack, main);
+
+	text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: map.get(variables.$font-stack, headings);
+}
+
+// TODO: Refactor this code to @mixin and configure scss file.
+@for $headingNumber from 1 through 6 {
+	$fontSizeBase: 52;
+
+	$headingFontSize: functions.calculateHeadingFontSize(
+		$fontSizeBase,
+		$headingNumber
+	);
+
+	h#{$headingNumber} {
+		font-size: functions.convertValueToREM($headingFontSize);
+	}
+}

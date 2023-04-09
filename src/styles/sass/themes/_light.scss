@@ -1,0 +1,17 @@
+@use "sass:map";
+@use "@sass-utils/variables";
+
+$color-map--light: (
+	body: (
+		text: #000,
+		background: map.get(variables.$palette--light, bluish, 200),
+	),
+	header: (),
+);
+
+[data-theme="light"] {
+	--color--text--body: #{map.get($color-map--light, body, text)};
+	--color--background--body: #{map.get($color-map--light, body, background)};
+}
+
+// ao inves de escrever um mixin de cada tema, repetindo as proprieades que levam as cores, seria melhor estilizar ja as propriedades com variaveis e so mudar os valores das variaveis com base em cada tema. Os mapas podem ajudar a organizar isso.

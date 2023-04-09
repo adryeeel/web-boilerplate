@@ -1,0 +1,337 @@
+@use "sass:color";
+@use "sass:map";
+@use "sass:list";
+@use "sass:math";
+
+@use "variables";
+
+/**
+* @Mixin for align flex elements.
+*	* This @mixin doesn't set display: flex. This must be done before the @mixin call.
+* 
+* @Param orientation: horizontal || vertical
+* @Param direction: column || row
+* @Param value: CSS Flexbox alignment value
+*
+*/
+@mixin flex-align(
+	$orientation: horizontal,
+	$direction: column,
+	$value: center
+) {
+	$alignment-properties: (
+		column: (
+			vertical: justify-items,
+			horizontal: align-items,
+		),
+		row: (
+			vertical: align-content,
+			horizontal: justify-content,
+		),
+	);
+
+	$selected: map.get($alignment-properties, $direction, $orientation);
+
+	@if $orientation == both {
+		justify-content: $value;
+		align-items: $value;
+	} @else {
+		#{$selected}: $value;
+	}
+}
+
+/**
+* @Mixin for grid alignment.
+* This @mixin can align grid items, the grid container or both.
+*	* This @mixin doesn't set display: grid. This must be done before the @mixin call.
+*
+* @Param type: child || container
+* @Param orientation: horizontal || vertical
+* @Param value: CSS Grid alignment value
+*
+*/
+@mixin grid-align($type: child, $orientation: horizontal, $value: center) {
+	$alignment-properties: (
+		child: (
+			vertical: align-items,
+			horizontal: justify-items,
+			both: place-items,
+		),
+		container: (
+			vertical: align-content,
+			horizontal: justify-content,
+			both: place-content,
+		),
+	);
+
+	$selected: map.get($alignment-properties, $type, $orientation);
+
+	#{$selected}: $value;
+}
+
+/**
+* @Mixin for absolute alignment.
+* This @mixin accepts a orientation to apply absolute alignment.
+*	* This @mixin doesn't set an position: absolute. This must be done before the @mixin call.
+*
+* @Param orientation: horizontal || vertical || both
+*
+*/
+@mixin absolute-align($orientation) {
+	@if $orientation == vertical {
+		top: 50%;
+		translate: 0 -50%;
+	}
+
+	@if $orientation == horizontal {
+		left: 50%;
+		translate: -50% 0;
+	}
+
+	@if $orientation == both {
+		left: 50%;
+		top: 50%;
+		translate: -50% -50%;
+	}
+}
+
+/**
+* @Mixin to apply linear gradients to backgrounds.
+* This @mixin accepts a linear-gradient() template for more specific configurations.
+* * If a template gradient is passed, all the other parameters will be ignored.
+*
+* @Param template: linear-gradient(...gradientParams) function.
+* @Param angle: [Number][angle-unit: turn | deg | grad | rad].
+* @Param colors: ([Color] [color-step-percentage: Number]%, [Color] [color-step-percentage: Number]%, ...).
+*
+*/
+@mixin linear-gradient(
+	$template: none,
+	$angle: 0deg,
+	$colors: (
+		variables.$primary-color 0%,
+		variables.$complentary-color 100%,
+	)
+) {
+	@if $template {
+		background: $template;
+	} @else {
+		background: linear-gradient($angle, $colors);
+	}
+}
+
+/**
+* @Mixin to apply conic gradients to backgrounds.
+* This @mixin accepts a conic-gradient() template for more specific configurations.
+* * If a template gradient is passed, all the other parameters will be ignored.
+*
+* @Param template: conic-gradient(...gradientParams) function.
+* @Param angle: [Number][angle-unit: turn | deg | grad | rad].
+* @Param direction: top || right || bottom || left || center
+* @Param colors: ([Color] [color-step-percentage: Number]%, [Color] [color-step-percentage: Number]%, ...).
+*
+*/
+@mixin conic-gradient(
+	$template: none,
+	$angle: 0deg,
+	$direction: center,
+	$colors: (
+		variables.$primary-color 0%,
+		variables.$complentary-color 100%,
+	)
+) {
+	@if $template {
+		background: $template;
+	} @else {
+		background: conic-gradient(from #{$angle} at #{$direction}, $colors);
+	}
+}
+
+/**
+* @Mixin to apply radial gradients to backgrounds.
+* This @mixin accepts a radial-gradient() template for more specific configurations.
+* * If a template gradient is passed, all the other parameters will be ignored.
+*
+* @Param template: radial-gradient(...gradientParams) function.
+* @Param shape: [ending-shape: circle | ellipse] || [size: closest-side | closest-corner | farthest-side | farthest-corner].
+* @Param direction: top || right || bottom || left || center
+* @Param colors: ([Color] [color-step-percentage: Number]%, [Color] [color-step-percentage: Number]%, ...).
+*
+*/
+@mixin radial-gradient(
+	$template: none,
+	$shape: circle,
+	$direction: center,
+	$colors: (
+		yellow 0%,
+		goldenrod 100%,
+	)
+) {
+	@if $template {
+		background: $template;
+	} @else {
+		background: radial-gradient(#{$shape} at #{$direction}, $colors);
+	}
+}
+
+/**
+* @Mixin for apply gradients to borders.
+* This @mixin supports custom gradient settings based on its parameters.
+* * This @mixin only applies linear gradients for the borders.
+*
+* @Param width: [border-width: Number][css-unit: rem | em | px | ...].
+* @Param angle: [Number][angle-unit: turn | deg | grad | rad].
+* @Param colors: ([Color] [color-step-percentage: Number]%, [Color] [color-step-percentage: Number]%, ...).
+*
+*/
+@mixin border-gradient(
+	$width: 0.5rem,
+	$angle,
+	$colors: (
+		variables.$primary-color 0%,
+		variables.$complentary-color 100%,
+	)
+) {
+	border-width: $width;
+	border-image: linear-gradient($angle, $colors);
+	border-image-slice: 1;
+}
+
+/**
+* @Mixin for apply gradients to texts.
+* This @mixin supports custom gradient settings based on its parameters.
+* * This @mixin only applies linear gradients for the texts.
+*
+* @Param angle: [Number][angle-unit: turn | deg | grad | rad].
+* @Param colors: ([Color] [color-step-percentage: Number]%, [Color] [color-step-percentage: Number]%, ...).
+*
+*/
+@mixin text-gradient(
+	$angle,
+	$colors: (variables.$primary-color 0%, variables.$complentary-color 100%)
+) {
+	background: linear-gradient($angle, $colors);
+	background-clip: text;
+
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+/**
+* @Mixin for apply 3D effect to texts.
+* This @mixin uses a text-shadow trick to create a 3D text effect.
+* The shadow depth is based on font-size of the text, so the text depth can adapt to different font sizes.
+*
+* @Param shadow-depth: Number.
+* @Param shadow-color: Color.
+* @Param shadow-direction: top || right || bottom || left
+* @Param shadow-opacity: [Number]%.
+* @Param shadow-lightning: [Number]%.
+*
+*	The shadow-lightning controls the percentage of how much darker/lighter the shadow will be. 
+* $shadow-lightning < 0 makes the shadow more darker. 
+* $shadow-lightning > 0 makes the shadow more lighter.
+* $shadow-lightning == 0 do not apply any lightning effect.
+*
+* The $shadow-direction parameter can accept combined values, in the same way that background-position accepts.
+* For example, you can combine top and right directions to make the 3d effect's direction top and right. 
+* The valid combinatioins are: top [right | left] || bottom [right | left]
+*/
+@mixin create-3d-text(
+	$shadow-depth: 5,
+	$shadow-color: #333,
+	$shadow-direction: bottom,
+	$shadow-opacity: 0%,
+	$shadow-lightning: 30%
+) {
+	// TODO: Error handling. $shadow-opacity and $shadow-lightning cannot be greater than 100% and less than -100%.
+
+	$shadow: ();
+	$color: $shadow-color;
+
+	// This variable stores the lightning step that will be used as strength to calculate the color of each shadow layer.
+	// The step is calculated with the $shadow-lightning value by the $shadow-depth, so the step * $i will never be greater than
+	// 100%, which is not accepted by the $lightness parameter on color.scale() function.
+	$lightning-formula: math.div($shadow-lightning, $shadow-depth);
+
+	@for $i from 1 through $shadow-depth {
+		// Color configuration
+		// Here is where the $lightning-formula is applied.
+		$color: color.scale(
+			$shadow-color,
+			$lightness: $i * $lightning-formula,
+			$alpha: $shadow-opacity
+		);
+
+		// Getting x and y offsets from the auxiliar function to define the shadow direction
+		$x-offset: map.get(_get-shadow-direction($shadow-direction, $i), x-offset);
+		$y-offset: map.get(_get-shadow-direction($shadow-direction, $i), y-offset);
+
+		$shadow: list.append(
+			$shadow,
+			#{math.div($x-offset, 100)}em #{math.div($y-offset, 100)}em $color,
+			comma
+		);
+	}
+
+	text-shadow: $shadow;
+}
+
+/**
+* @Function to auxiliate the create-3d-text @mixin.
+* The main purpose is improve the code readability;
+* This function is used to get the x and y offset that will used to define the shadow direction in create-3d-text.
+* This function uses a map technique to behave like a switch...case statement.
+* * Private member.
+*
+*	@Param $shadow-direction: the $shadow-direction value received by the @mixin.
+*	@Param $offset-value: Number.
+* @Returns Map([x-offset], [y-offset]).
+*
+*/
+@function _get-shadow-direction($shadow-direction, $offset-value) {
+	$directions: (
+		top: (
+			x-offset: 0,
+			y-offset: -$offset-value,
+		),
+		right: (
+			x-offset: $offset-value,
+			y-offset: 0,
+		),
+		bottom: (
+			x-offset: 0,
+			y-offset: $offset-value,
+		),
+		left: (
+			x-offset: -$offset-value,
+			y-offset: 0,
+		),
+		top right:
+			(
+				x-offset: $offset-value,
+				y-offset: -$offset-value,
+			),
+		top left:
+			(
+				x-offset: -$offset-value,
+				y-offset: -$offset-value,
+			),
+		bottom right:
+			(
+				x-offset: $offset-value,
+				y-offset: $offset-value,
+			),
+		bottom left:
+			(
+				x-offset: -$offset-value,
+				y-offset: $offset-value,
+			),
+	);
+
+	@return map.get($directions, $shadow-direction);
+}
+
+@mixin setFontColor() {
+	// set the text font color to dark or light based on their background lightness.
+}
