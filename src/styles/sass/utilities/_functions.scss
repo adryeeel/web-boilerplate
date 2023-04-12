@@ -1,6 +1,7 @@
 @use "sass:math";
 @use "sass:map";
 
+
 @function calculateHeadingFontSize($fontSizeBase: 28, $headingNumber) {
 	// Headings font-size formula: base * 2 ^ (step / 5)
 
