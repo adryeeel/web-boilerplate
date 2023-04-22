@@ -7,6 +7,21 @@ $palette--main: (
 	analog: #2152d9,
 ) !default;
 
+$palette--alerts: (
+	normal: (
+		info: #76c9ff,
+		error: #f3485a,
+		warning: #f9a504,
+		success: #33ce70,
+	),
+	darker: (
+		info: color.scale(#76c9ff, $lightness: -30%),
+		error: color.scale(#f3485a, $lightness: -30%),
+		warning: color.scale(#f9a504, $lightness: -30%),
+		success: color.scale(#33ce70, $lightness: -30%),
+	),
+) !default;
+
 $palette--dark: (
 	normal: (
 		100: #101010,
@@ -22,7 +37,7 @@ $palette--dark: (
 		400: color.adjust(#272727, $blue: 5%),
 		500: color.adjust(#303030, $blue: 5%),
 	),
-);
+) !default;
 
 $palette--light: (
 	normal: (
@@ -39,7 +54,7 @@ $palette--light: (
 		400: color.adjust(#bbb, $blue: 5%),
 		500: color.adjust(#aaa, $blue: 5%),
 	),
-);
+) !default;
 
 $font-size: (
 	100: 1.2rem,
@@ -62,7 +77,7 @@ $font-stack: (
 		"Martian Mono",
 		monospace,
 	),
-);
+) !default;
 
 $dark-shadow: #00000033 !default;
 $darker-shadow: #00000066 !default;
@@ -72,7 +87,7 @@ $lighter-shadow: #ffffff66 !default;
 $max-width: 120rem !default;
 $min-height: 100vh !default;
 
-$media-queries-breakpoints: (
+$breakpoints: (
 	mobile: 480px,
 	tablet: 768px,
 	laptop: 1024px,

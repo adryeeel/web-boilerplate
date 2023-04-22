@@ -332,6 +332,6 @@
 	@return map.get($directions, $shadow-direction);
 }
 
+// TODO: set the text font color to dark or light based on their background lightness.
 @mixin setFontColor() {
-	// set the text font color to dark or light based on their background lightness.
 }

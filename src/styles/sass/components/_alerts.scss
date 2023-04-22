@@ -1,0 +1,69 @@
+@use "sass:map";
+@use "@sass-utils/variables";
+
+// TODO: Mixins to set animations.
+
+.alert {
+	display: grid;
+	grid-template-columns: 15% 1fr 15%;
+
+	width: 100%;
+	max-width: 30rem;
+
+	color: var(--color--alert--10);
+	background-color: var(--color--alert--05);
+
+	border-radius: 0.5rem;
+	border-left: 0.5rem solid;
+
+	cursor: default;
+	position: relative;
+
+	animation: slide-in 700ms forwards, slide-out 700ms ease-in 5.5s forwards;
+
+	&::before {
+		content: "";
+
+		position: absolute;
+		bottom: 0;
+
+		width: 0%;
+		height: 0.3rem;
+
+		background: currentColor;
+		animation: progress 5s linear 500ms forwards;
+	}
+
+	&__icon {
+		place-self: center;
+		font-size: 2.2rem;
+	}
+
+	&__message {
+		padding: 0.7em 0;
+		font-size: 1.4rem;
+
+		& * {
+			margin: 0;
+			line-height: 2rem;
+		}
+
+		&__title {
+			font-weight: 600;
+		}
+	}
+
+	&__close__button {
+		width: 100%;
+		height: 100%;
+
+		border: 0;
+		cursor: pointer;
+
+		background-color: var(--color--alert--02);
+
+		&:active {
+			background-color: var(--color--alert--04);
+		}
+	}
+}
