@@ -2,7 +2,7 @@
 	"name": "boilerplate",
 	"version": "1.0.0",
 	"description": "Web project boilerplate files",
-	"main": "src/main.js",
+	"main": "src/js/main.js",
 	"author": "Adryel Bezerra",
 	"license": "MIT",
 	"scripts": {
