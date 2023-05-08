@@ -1,70 +1,111 @@
 @use "sass:color";
 @use "sass:map";
 
-$palette--main: (
-	primary: #daa520,
-	complementary: #ca7520,
-	analog: #2152d9,
-) !default;
+$hue: 200;
 
-$palette--alerts: (
-	normal: (
-		info: #76c9ff,
-		error: #f3485a,
-		warning: #f9a504,
-		success: #33ce70,
-	),
-	darker: (
-		info: color.scale(#76c9ff, $lightness: -30%),
-		error: color.scale(#f3485a, $lightness: -30%),
-		warning: color.scale(#f9a504, $lightness: -30%),
-		success: color.scale(#33ce70, $lightness: -30%),
-	),
+@mixin configure($hue) {
+	$main-hue: $hue !global;
+}
+
+$palette--main: (
+	100: hsl($hue, 75%, 90%),
+	200: hsl($hue, 75%, 80%),
+	300: hsl($hue, 75%, 70%),
+	400: hsl($hue, 75%, 60%),
+	500: hsl($hue, 75%, 50%),
+	600: hsl($hue, 75%, 40%),
+	700: hsl($hue, 75%, 30%),
+	800: hsl($hue, 75%, 20%),
+	900: hsl($hue, 75%, 10%),
 ) !default;
 
 $palette--dark: (
-	normal: (
-		100: #101010,
-		200: #171717,
-		300: #202020,
-		400: #272727,
-		500: #303030,
-	),
-	bluish: (
-		100: color.adjust(#101010, $blue: 5%),
-		200: color.adjust(#171717, $blue: 5%),
-		300: color.adjust(#202020, $blue: 5%),
-		400: color.adjust(#272727, $blue: 5%),
-		500: color.adjust(#303030, $blue: 5%),
-	),
+	100: hsl($hue, 8%, 45%),
+	200: hsl($hue, 8%, 40%),
+	300: hsl($hue, 8%, 35%),
+	400: hsl($hue, 8%, 30%),
+	500: hsl($hue, 8%, 25%),
+	600: hsl($hue, 8%, 20%),
+	700: hsl($hue, 8%, 15%),
+	800: hsl($hue, 8%, 10%),
+	900: hsl($hue, 8%, 5%),
 ) !default;
 
 $palette--light: (
-	normal: (
-		100: #eee,
-		200: #ddd,
-		300: #ccc,
-		400: #bbb,
-		500: #aaa,
+	100: hsl($hue, 8%, 95%),
+	200: hsl($hue, 8%, 90%),
+	300: hsl($hue, 8%, 85%),
+	400: hsl($hue, 8%, 80%),
+	500: hsl($hue, 8%, 75%),
+	600: hsl($hue, 8%, 70%),
+	700: hsl($hue, 8%, 65%),
+	800: hsl($hue, 8%, 60%),
+	900: hsl($hue, 8%, 55%),
+) !default;
+
+$palette--alerts: (
+	red: (
+		100: hsl(350, 75%, 90%),
+		200: hsl(350, 75%, 80%),
+		300: hsl(350, 75%, 70%),
+		400: hsl(350, 75%, 60%),
+		500: hsl(350, 75%, 50%),
+		600: hsl(350, 75%, 40%),
+		700: hsl(350, 75%, 30%),
+		800: hsl(350, 75%, 20%),
+		900: hsl(350, 75%, 10%),
 	),
-	bluish: (
-		100: color.adjust(#eee, $blue: 5%),
-		200: color.adjust(#ddd, $blue: 5%),
-		300: color.adjust(#ccc, $blue: 5%),
-		400: color.adjust(#bbb, $blue: 5%),
-		500: color.adjust(#aaa, $blue: 5%),
+
+	green: (
+		100: hsl(140, 75%, 90%),
+		200: hsl(140, 75%, 80%),
+		300: hsl(140, 75%, 70%),
+		400: hsl(140, 75%, 60%),
+		500: hsl(140, 75%, 50%),
+		600: hsl(140, 75%, 40%),
+		700: hsl(140, 75%, 30%),
+		800: hsl(140, 75%, 20%),
+		900: hsl(140, 75%, 10%),
+	),
+
+	blue: (
+		100: hsl(210, 75%, 90%),
+		200: hsl(210, 75%, 80%),
+		300: hsl(210, 75%, 70%),
+		400: hsl(210, 75%, 60%),
+		500: hsl(210, 75%, 50%),
+		600: hsl(210, 75%, 40%),
+		700: hsl(210, 75%, 30%),
+		800: hsl(210, 75%, 20%),
+		900: hsl(210, 75%, 10%),
+	),
+
+	yellow: (
+		100: hsl(50, 75%, 90%),
+		200: hsl(50, 75%, 80%),
+		300: hsl(50, 75%, 70%),
+		400: hsl(50, 75%, 60%),
+		500: hsl(50, 75%, 50%),
+		600: hsl(50, 75%, 40%),
+		700: hsl(50, 75%, 30%),
+		800: hsl(50, 75%, 20%),
+		900: hsl(50, 75%, 10%),
 	),
 ) !default;
 
-$font-size: (
-	100: 1.2rem,
-	200: 1.4rem,
-	300: 1.6rem,
-	400: 1.8rem,
-	500: 2rem,
+$font-sizes: (
+	100: 0.8rem,
+	200: 1rem,
+	300: 1.2rem,
+	400: 1.4rem,
+	500: 1.6rem,
+	600: 1.8rem,
+	700: 2rem,
+	800: 2.2rem,
+	900: 2.4rem,
 ) !default;
 
-$font-stack: (
+$font-stacks: (
 	main: (
 		"Poppins",
 		sans-serif,
@@ -78,6 +119,8 @@ $font-stack: (
 		monospace,
 	),
 ) !default;
+
+// TODO: Refactor to maps and weights:
 
 $dark-shadow: #00000033 !default;
 $darker-shadow: #00000066 !default;
@@ -95,11 +138,11 @@ $breakpoints: (
 ) !default;
 
 $gradients: (
-	"chill": linear-gradient(135deg, #09e485 0%, #0291e3 100%),
-	"warm": linear-gradient(135deg, #ffb30b 0%, #f36a3e 100%),
-	"hot": linear-gradient(135deg, #f9445a 0%, #fd803f 100%),
-	"cold": linear-gradient(135deg, #3109e3 0%, #7902f0 100%),
-	"colder": linear-gradient(135deg, #2b1491 0%, #9a47ff 100%),
+	chill: linear-gradient(135deg, #09e485 0%, #0291e3 100%),
+	warm: linear-gradient(135deg, #ffb30b 0%, #f36a3e 100%),
+	hot: linear-gradient(135deg, #f9445a 0%, #fd803f 100%),
+	cold: linear-gradient(135deg, #3109e3 0%, #7902f0 100%),
+	colder: linear-gradient(135deg, #2b1491 0%, #9a47ff 100%),
 );
 
 $gradients: () !default;

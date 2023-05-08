@@ -10,14 +10,15 @@
 	width: 100%;
 	max-width: 30rem;
 
-	color: var(--color--alert--10);
-	background-color: var(--color--alert--05);
-
 	border-radius: 0.5rem;
-	border-left: 0.5rem solid;
+	border-left: 0.5rem solid var(--color--alert--500);
 
 	cursor: default;
+	overflow: hidden;
 	position: relative;
+
+	color: var(--color--alert--800);
+	background-color: var(--color--alert--200);
 
 	animation: slide-in 700ms forwards, slide-out 700ms ease-in 5.5s forwards;
 
@@ -35,16 +36,18 @@
 
 		background: linear-gradient(
 			to left,
-			var(--color--alert--10),
-			var(--color--alert--02)
+			var(--color--alert--500),
+			var(--color--alert--200)
 		);
-		
+
 		animation: progress 5s linear 500ms forwards;
 	}
 
 	&__icon {
 		place-self: center;
 		font-size: 2.2rem;
+
+		color: var(--color--alert--500);
 	}
 
 	&__message {
@@ -58,6 +61,7 @@
 
 		&__title {
 			font-weight: 600;
+			color: var(--color--alert--900);
 		}
 	}
 
@@ -68,10 +72,72 @@
 		border: 0;
 		cursor: pointer;
 
-		background-color: var(--color--alert--02);
+		background-color: var(--color--alert--300);
 
 		&:active {
-			background-color: var(--color--alert--04);
+			background-color: var(--color--alert--400);
 		}
+
+		&__icon {
+			color: var(--color--alert--600);
+		}
+	}
+}
+
+.alert {
+	&--info {
+		$color--info: map.get(variables.$palette--alerts, blue);
+
+		--color--alert--100: #{map.get($color--info, 100)};
+		--color--alert--200: #{map.get($color--info, 200)};
+		--color--alert--300: #{map.get($color--info, 300)};
+		--color--alert--400: #{map.get($color--info, 400)};
+		--color--alert--500: #{map.get($color--info, 500)};
+		--color--alert--600: #{map.get($color--info, 600)};
+		--color--alert--700: #{map.get($color--info, 700)};
+		--color--alert--800: #{map.get($color--info, 800)};
+		--color--alert--900: #{map.get($color--info, 900)};
+	}
+
+	&--success {
+		$color--info: map.get(variables.$palette--alerts, green);
+
+		--color--alert--100: #{map.get($color--info, 100)};
+		--color--alert--200: #{map.get($color--info, 200)};
+		--color--alert--300: #{map.get($color--info, 300)};
+		--color--alert--400: #{map.get($color--info, 400)};
+		--color--alert--500: #{map.get($color--info, 500)};
+		--color--alert--600: #{map.get($color--info, 600)};
+		--color--alert--700: #{map.get($color--info, 700)};
+		--color--alert--800: #{map.get($color--info, 800)};
+		--color--alert--900: #{map.get($color--info, 900)};
+	}
+
+	&--warning {
+		$color--info: map.get(variables.$palette--alerts, yellow);
+
+		--color--alert--100: #{map.get($color--info, 100)};
+		--color--alert--200: #{map.get($color--info, 200)};
+		--color--alert--300: #{map.get($color--info, 300)};
+		--color--alert--400: #{map.get($color--info, 400)};
+		--color--alert--500: #{map.get($color--info, 500)};
+		--color--alert--600: #{map.get($color--info, 600)};
+		--color--alert--700: #{map.get($color--info, 700)};
+		--color--alert--800: #{map.get($color--info, 800)};
+		--color--alert--900: #{map.get($color--info, 900)};
+	}
+
+	&--error {
+		$color--info: map.get(variables.$palette--alerts, red);
+
+		--color--alert--100: #{map.get($color--info, 100)};
+		--color--alert--200: #{map.get($color--info, 200)};
+		--color--alert--300: #{map.get($color--info, 300)};
+		--color--alert--400: #{map.get($color--info, 400)};
+		--color--alert--500: #{map.get($color--info, 500)};
+		--color--alert--600: #{map.get($color--info, 600)};
+		--color--alert--700: #{map.get($color--info, 700)};
+		--color--alert--800: #{map.get($color--info, 800)};
+		--color--alert--900: #{map.get($color--info, 900)};
 	}
 }

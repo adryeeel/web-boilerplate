@@ -1,4 +1,8 @@
+@use "sass:map";
+@use "@sass-utils/variables";
+
 :root {
 	--color--text--body: unset;
 	--color--background--body: unset;
+	--font--size--body: #{map.get(variables.$font-sizes, 500)};
 }

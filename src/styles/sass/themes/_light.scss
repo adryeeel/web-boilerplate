@@ -4,7 +4,7 @@
 $color-map--light: (
 	body: (
 		text: #000,
-		background: map.get(variables.$palette--light, bluish, 200),
+		background: map.get(variables.$palette--light, 200),
 	),
 	header: (),
 );
@@ -15,40 +15,40 @@ $color-map--light: (
 
 	.alert {
 		&--info {
-			$color--info: map.get(variables.$palette--alerts, darker, info);
+			$color--info: map.get(variables.$palette--alerts, blue);
 
-			--color--alert--10: #{$color--info};
-			--color--alert--02: #{rgba($color: $color--info, $alpha: 0.2)};
-			--color--alert--04: #{rgba($color: $color--info, $alpha: 0.4)};
-			--color--alert--05: #{rgba($color: $color--info, $alpha: 0.5)};
+			--color--alert--200: #{map.get($color--info, 200)};
+			--color--alert--400: #{map.get($color--info, 400)};
+			--color--alert--500: #{map.get($color--info, 500)};
+			--color--alert--900: #{map.get($color--info, 900)};
 		}
 
-		&--error {
-			$color--error: map.get(variables.$palette--alerts, darker, error);
+		// &--error {
+		// 	$color--error: map.get(variables.$palette--alerts, darker, error);
 
-			--color--alert--10: #{$color--error};
-			--color--alert--02: #{rgba($color: $color--error, $alpha: 0.2)};
-			--color--alert--04: #{rgba($color: $color--error, $alpha: 0.4)};
-			--color--alert--05: #{rgba($color: $color--error, $alpha: 0.5)};
-		}
+		// 	--color--alert--10: #{$color--error};
+		// 	--color--alert--02: #{rgba($color: $color--error, $alpha: 0.2)};
+		// 	--color--alert--04: #{rgba($color: $color--error, $alpha: 0.4)};
+		// 	--color--alert--05: #{rgba($color: $color--error, $alpha: 0.5)};
+		// }
 
-		&--warning {
-			$color--warning: map.get(variables.$palette--alerts, darker, warning);
+		// &--warning {
+		// 	$color--warning: map.get(variables.$palette--alerts, darker, warning);
 
-			--color--alert--10: #{$color--warning};
-			--color--alert--02: #{rgba($color: $color--warning, $alpha: 0.2)};
-			--color--alert--04: #{rgba($color: $color--warning, $alpha: 0.4)};
-			--color--alert--05: #{rgba($color: $color--warning, $alpha: 0.5)};
-		}
+		// 	--color--alert--10: #{$color--warning};
+		// 	--color--alert--02: #{rgba($color: $color--warning, $alpha: 0.2)};
+		// 	--color--alert--04: #{rgba($color: $color--warning, $alpha: 0.4)};
+		// 	--color--alert--05: #{rgba($color: $color--warning, $alpha: 0.5)};
+		// }
 
-		&--success {
-			$color--success: map.get(variables.$palette--alerts, darker, success);
+		// &--success {
+		// 	$color--success: map.get(variables.$palette--alerts, darker, success);
 
-			--color--alert--10: #{$color--success};
-			--color--alert--02: #{rgba($color: $color--success, $alpha: 0.2)};
-			--color--alert--04: #{rgba($color: $color--success, $alpha: 0.4)};
-			--color--alert--05: #{rgba($color: $color--success, $alpha: 0.5)};
-		}
+		// 	--color--alert--10: #{$color--success};
+		// 	--color--alert--02: #{rgba($color: $color--success, $alpha: 0.2)};
+		// 	--color--alert--04: #{rgba($color: $color--success, $alpha: 0.4)};
+		// 	--color--alert--05: #{rgba($color: $color--success, $alpha: 0.5)};
+		// }
 	}
 }
 

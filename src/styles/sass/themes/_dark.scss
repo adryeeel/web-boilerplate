@@ -4,7 +4,7 @@
 $color-map--dark: (
 	body: (
 		text: #fff,
-		background: map.get(variables.$palette--dark, bluish, 200),
+		background: map.get(variables.$palette--dark, 800),
 	),
 	header: (),
 );
@@ -13,43 +13,7 @@ $color-map--dark: (
 	--color--text--body: #{map.get($color-map--dark, body, text)};
 	--color--background--body: #{map.get($color-map--dark, body, background)};
 
-	.alert {
-		&--info {
-			$color--info: map.get(variables.$palette--alerts, normal, info);
-
-			--color--alert--10: #{$color--info};
-			--color--alert--02: #{rgba($color: $color--info, $alpha: 0.2)};
-			--color--alert--04: #{rgba($color: $color--info, $alpha: 0.4)};
-			--color--alert--05: #{rgba($color: $color--info, $alpha: 0.5)};
-		}
-
-		&--error {
-			$color--error: map.get(variables.$palette--alerts, normal, error);
-
-			--color--alert--10: #{$color--error};
-			--color--alert--02: #{rgba($color: $color--error, $alpha: 0.2)};
-			--color--alert--04: #{rgba($color: $color--error, $alpha: 0.4)};
-			--color--alert--05: #{rgba($color: $color--error, $alpha: 0.5)};
-		}
-
-		&--warning {
-			$color--warning: map.get(variables.$palette--alerts, normal, warning);
-
-			--color--alert--10: #{$color--warning};
-			--color--alert--02: #{rgba($color: $color--warning, $alpha: 0.2)};
-			--color--alert--04: #{rgba($color: $color--warning, $alpha: 0.4)};
-			--color--alert--05: #{rgba($color: $color--warning, $alpha: 0.5)};
-		}
-
-		&--success {
-			$color--success: map.get(variables.$palette--alerts, normal, success);
-
-			--color--alert--10: #{$color--success};
-			--color--alert--02: #{rgba($color: $color--success, $alpha: 0.2)};
-			--color--alert--04: #{rgba($color: $color--success, $alpha: 0.4)};
-			--color--alert--05: #{rgba($color: $color--success, $alpha: 0.5)};
-		}
-	}
+	
 }
 
 // TODO: Improve theme switch with @media queries.
