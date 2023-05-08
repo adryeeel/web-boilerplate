@@ -12,10 +12,12 @@ $color-map--dark: (
 [data-theme="dark"] {
 	--color--text--body: #{map.get($color-map--dark, body, text)};
 	--color--background--body: #{map.get($color-map--dark, body, background)};
-
-	
 }
 
 // TODO: Improve theme switch with @media queries.
 @media (prefers-color-scheme: dark) {
+	:root {
+		--color--text--body: #{map.get($color-map--dark, body, text)};
+		--color--background--body: #{map.get($color-map--dark, body, background)};
+	}
 }
