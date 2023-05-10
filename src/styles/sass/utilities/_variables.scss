@@ -1,46 +1,44 @@
 @use "sass:color";
 @use "sass:map";
 
-$hue: 200;
+@use "config";
 
-@mixin configure($hue) {
-	$main-hue: $hue !global;
-}
+$-hue: config.$hue;
 
 $palette--main: (
-	100: hsl($hue, 75%, 90%),
-	200: hsl($hue, 75%, 80%),
-	300: hsl($hue, 75%, 70%),
-	400: hsl($hue, 75%, 60%),
-	500: hsl($hue, 75%, 50%),
-	600: hsl($hue, 75%, 40%),
-	700: hsl($hue, 75%, 30%),
-	800: hsl($hue, 75%, 20%),
-	900: hsl($hue, 75%, 10%),
+	100: hsl($-hue, 75%, 90%),
+	200: hsl($-hue, 75%, 80%),
+	300: hsl($-hue, 75%, 70%),
+	400: hsl($-hue, 75%, 60%),
+	500: hsl($-hue, 75%, 50%),
+	600: hsl($-hue, 75%, 40%),
+	700: hsl($-hue, 75%, 30%),
+	800: hsl($-hue, 75%, 20%),
+	900: hsl($-hue, 75%, 10%),
 ) !default;
 
 $palette--dark: (
-	100: hsl($hue, 8%, 45%),
-	200: hsl($hue, 8%, 40%),
-	300: hsl($hue, 8%, 35%),
-	400: hsl($hue, 8%, 30%),
-	500: hsl($hue, 8%, 25%),
-	600: hsl($hue, 8%, 20%),
-	700: hsl($hue, 8%, 15%),
-	800: hsl($hue, 8%, 10%),
-	900: hsl($hue, 8%, 5%),
+	100: hsl($-hue, 8%, 45%),
+	200: hsl($-hue, 8%, 40%),
+	300: hsl($-hue, 8%, 35%),
+	400: hsl($-hue, 8%, 30%),
+	500: hsl($-hue, 8%, 25%),
+	600: hsl($-hue, 8%, 20%),
+	700: hsl($-hue, 8%, 15%),
+	800: hsl($-hue, 8%, 10%),
+	900: hsl($-hue, 8%, 5%),
 ) !default;
 
 $palette--light: (
-	100: hsl($hue, 8%, 95%),
-	200: hsl($hue, 8%, 90%),
-	300: hsl($hue, 8%, 85%),
-	400: hsl($hue, 8%, 80%),
-	500: hsl($hue, 8%, 75%),
-	600: hsl($hue, 8%, 70%),
-	700: hsl($hue, 8%, 65%),
-	800: hsl($hue, 8%, 60%),
-	900: hsl($hue, 8%, 55%),
+	100: hsl($-hue, 8%, 95%),
+	200: hsl($-hue, 8%, 90%),
+	300: hsl($-hue, 8%, 85%),
+	400: hsl($-hue, 8%, 80%),
+	500: hsl($-hue, 8%, 75%),
+	600: hsl($-hue, 8%, 70%),
+	700: hsl($-hue, 8%, 65%),
+	800: hsl($-hue, 8%, 60%),
+	900: hsl($-hue, 8%, 55%),
 ) !default;
 
 $palette--alerts: (
@@ -120,7 +118,7 @@ $font-stacks: (
 	),
 ) !default;
 
-// TODO: Refactor to maps and weights:
+// TODO: Refactor shadows to maps and weights:
 
 $dark-shadow: #00000033 !default;
 $darker-shadow: #00000066 !default;

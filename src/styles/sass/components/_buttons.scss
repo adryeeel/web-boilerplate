@@ -1,5 +1,12 @@
 @use "@sass-utils/variables";
 
-button {
+// TODO: Switch button
 
+button.button--reset {
+  border: 0;
+  font-family: inherit;
+}
+
+button {
+  
 }

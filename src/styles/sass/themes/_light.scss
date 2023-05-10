@@ -14,7 +14,6 @@ $color-map--light: (
 	--color--background--body: #{map.get($color-map--light, body, background)};
 }
 
-// TODO: Improve theme switch with @media queries.
 @media (prefers-color-scheme: light) {
 	:root {
 		--color--text--body: #{map.get($color-map--light, body, text)};

@@ -1,0 +1,13 @@
+/**
+*
+* Configuration file to set the values of _variables.scss partial.
+*
+* In this partial, you can configure the intended values for variables module.
+* Once defined, you can @use the variables module with the new values set here.
+*
+** Do not @use this config file, @use the _variables.scss instead and just 
+** configure them in this partial.
+*/
+
+// Set the hue for the main, dark and light palettes.
+$hue: 200;

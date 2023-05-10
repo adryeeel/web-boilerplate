@@ -264,8 +264,8 @@
 		);
 
 		// Getting x and y offsets from the auxiliar function to define the shadow direction
-		$x-offset: map.get(_get-shadow-direction($shadow-direction, $i), x-offset);
-		$y-offset: map.get(_get-shadow-direction($shadow-direction, $i), y-offset);
+		$x-offset: map.get(_get-shadow-offset($shadow-direction, $i), x-offset);
+		$y-offset: map.get(_get-shadow-offset($shadow-direction, $i), y-offset);
 
 		$shadow: list.append(
 			$shadow,
@@ -289,7 +289,7 @@
 * @Returns Map([x-offset], [y-offset]).
 *
 */
-@function _get-shadow-direction($shadow-direction, $offset-value) {
+@function _get-shadow-offset($shadow-direction, $offset-value) {
 	$directions: (
 		top: (
 			x-offset: 0,
@@ -332,6 +332,18 @@
 	@return map.get($directions, $shadow-direction);
 }
 
-// TODO: set the text font color to dark or light based on their background lightness.
-@mixin setFontColor() {
+/**
+* @Mixin to prefix CSS properties with vendors.
+*
+*	@Param $property: any prefixable CSS Property.
+*	@Param $value: any css value valid with the $property.
+* @Param $vendors: List(webkit | moz | ms | o).
+*
+*/
+@mixin vendor-prefix($property, $value, $vendors...) {
+	@each $vendor in $vendors {
+		-#{$vendor}-#{$property}: $value;
+	}
+
+	#{$property}: $value;
 }
