@@ -34,15 +34,15 @@ $palette--light: (
 // Lighter tones in a dark palette have more elevation in the UI, so those lighter tones should be the highest values in the palette. For a light palette, the logic is the opposite.
 
 $palette--dark: (
-	900: hsl($-hue, 8%, 45%),
-	800: hsl($-hue, 8%, 40%),
-	700: hsl($-hue, 8%, 35%),
-	600: hsl($-hue, 8%, 30%),
-	500: hsl($-hue, 8%, 25%),
-	400: hsl($-hue, 8%, 20%),
-	300: hsl($-hue, 8%, 15%),
-	200: hsl($-hue, 8%, 10%),
-	100: hsl($-hue, 8%, 5%),
+	900: hsl($-hue, 8%, 36%),
+	800: hsl($-hue, 8%, 32%),
+	700: hsl($-hue, 8%, 28%),
+	600: hsl($-hue, 8%, 24%),
+	500: hsl($-hue, 8%, 20%),
+	400: hsl($-hue, 8%, 16%),
+	300: hsl($-hue, 8%, 12%),
+	200: hsl($-hue, 8%, 8%),
+	100: hsl($-hue, 8%, 4%),
 ) !default;
 
 $palette--alerts: (
