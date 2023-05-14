@@ -2,21 +2,29 @@
 @use "@sass-utils/variables";
 
 $color-map--light: (
-	body: (
-		text: #000,
-		background: map.get(variables.$palette--light, 200),
-	),
-	header: (),
+	text: hsl(0, 5%, 20%),
 );
 
 [data-theme="light"] {
-	--color--text--body: #{map.get($color-map--light, body, text)};
-	--color--background--body: #{map.get($color-map--light, body, background)};
+	@for $i from 1 through 9 {
+		--color--theme--#{$i * 100}: #{map.get(
+				variables.$palette--light,
+				$i * 100
+			)};
+	}
+
+	--color--text: #{map.get($color-map--light, text)};
 }
 
 @media (prefers-color-scheme: light) {
 	:root {
-		--color--text--body: #{map.get($color-map--light, body, text)};
-		--color--background--body: #{map.get($color-map--light, body, background)};
+		@for $i from 1 through 9 {
+			--color--theme--#{$i * 100}: #{map.get(
+					variables.$palette--light,
+					$i * 100
+				)};
+		}
+
+		--color--text: #{map.get($color-map--light, text)};
 	}
 }

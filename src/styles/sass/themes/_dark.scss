@@ -2,21 +2,26 @@
 @use "@sass-utils/variables";
 
 $color-map--dark: (
-	body: (
-		text: #fff,
-		background: map.get(variables.$palette--dark, 800),
-	),
-	header: (),
+	text: hsl(0, 5%, 80%),
 );
 
 [data-theme="dark"] {
-	--color--text--body: #{map.get($color-map--dark, body, text)};
-	--color--background--body: #{map.get($color-map--dark, body, background)};
+	@for $i from 1 through 9 {
+		--color--theme--#{$i * 100}: #{map.get(variables.$palette--dark, $i * 100)};
+	}
+
+	--color--text: #{map.get($color-map--dark, text)};
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--color--text--body: #{map.get($color-map--dark, body, text)};
-		--color--background--body: #{map.get($color-map--dark, body, background)};
+		@for $i from 1 through 9 {
+			--color--theme--#{$i * 100}: #{map.get(
+					variables.$palette--dark,
+					$i * 100
+				)};
+		}
+
+		--color--text: #{map.get($color-map--dark, text)};
 	}
 }

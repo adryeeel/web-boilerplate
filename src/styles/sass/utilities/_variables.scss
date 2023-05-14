@@ -3,7 +3,9 @@
 
 @use "config";
 
-$-hue: config.$hue;
+// TODO: Padronize system for margins and paddings
+
+$-hue: config.$hue !default;
 
 $palette--main: (
 	100: hsl($-hue, 75%, 90%),
@@ -18,15 +20,15 @@ $palette--main: (
 ) !default;
 
 $palette--dark: (
-	100: hsl($-hue, 8%, 45%),
-	200: hsl($-hue, 8%, 40%),
-	300: hsl($-hue, 8%, 35%),
-	400: hsl($-hue, 8%, 30%),
+	900: hsl($-hue, 8%, 45%),
+	800: hsl($-hue, 8%, 40%),
+	700: hsl($-hue, 8%, 35%),
+	600: hsl($-hue, 8%, 30%),
 	500: hsl($-hue, 8%, 25%),
-	600: hsl($-hue, 8%, 20%),
-	700: hsl($-hue, 8%, 15%),
-	800: hsl($-hue, 8%, 10%),
-	900: hsl($-hue, 8%, 5%),
+	400: hsl($-hue, 8%, 20%),
+	300: hsl($-hue, 8%, 15%),
+	200: hsl($-hue, 8%, 10%),
+	100: hsl($-hue, 8%, 5%),
 ) !default;
 
 $palette--light: (
@@ -118,12 +120,21 @@ $font-stacks: (
 	),
 ) !default;
 
-// TODO: Refactor shadows to maps and weights:
+$shadows--dark: (
+	100: 0 4px 8px #00000030,
+	200: 0 8px 16px #00000030,
+	300: 0 12px 24px #00000030,
+	400: 0 16px 32px #00000030,
+	500: 0 20px 40px #00000030,
+);
 
-$dark-shadow: #00000033 !default;
-$darker-shadow: #00000066 !default;
-$light-shadow: #ffffff33 !default;
-$lighter-shadow: #ffffff66 !default;
+$shadows--light: (
+	100: 0 4px 8px #ffffff20,
+	200: 0 8px 16px #ffffff20,
+	300: 0 12px 24px #ffffff20,
+	400: 0 16px 32px #ffffff20,
+	500: 0 20px 40px #ffffff20,
+);
 
 $max-width: 120rem !default;
 $min-height: 100vh !default;

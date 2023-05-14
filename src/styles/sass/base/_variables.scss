@@ -2,7 +2,9 @@
 @use "@sass-utils/variables";
 
 :root {
-	--color--text--body: unset;
-	--color--background--body: unset;
+	@for $i from 1 through 9 {
+		--color--main--#{$i * 100}: #{map.get(variables.$palette--main, $i * 100)};
+	}
+
 	--font--size--body: #{map.get(variables.$font-sizes, 500)};
 }

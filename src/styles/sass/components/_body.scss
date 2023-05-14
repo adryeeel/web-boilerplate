@@ -2,7 +2,7 @@
 @use "@sass-utils/variables";
 
 body {
-	color: var(--color--text--body);
-	background: var(--color--background--body);
+	color: var(--color--text);
+	background: var(--color--theme--200);
 	accent-color: map.get(variables.$palette--main, 500);
 }
