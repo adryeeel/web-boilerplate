@@ -2,7 +2,7 @@
 @use "@sass-utils/variables";
 
 $color-map--dark: (
-	text: hsl(0, 5%, 80%),
+	text: map.get(variables.$palette--main, 100),
 );
 
 [data-theme="dark"] {
