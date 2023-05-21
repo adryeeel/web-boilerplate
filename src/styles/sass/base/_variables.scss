@@ -2,6 +2,8 @@
 @use "@sass-utils/variables";
 
 :root {
+	color-scheme: normal;
+
 	@for $i from 1 through 9 {
 		--color--main--#{$i * 100}: #{map.get(variables.$palette--main, $i * 100)};
 	}

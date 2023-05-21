@@ -18,6 +18,8 @@ $color-map--light: (
 
 @media (prefers-color-scheme: light) {
 	:root {
+		color-scheme: only light;
+
 		@for $i from 1 through 9 {
 			--color--theme--#{$i * 100}: #{map.get(
 					variables.$palette--light,
