@@ -1,0 +1,129 @@
+@use "sass:map";
+
+$DEFAULT_DELAY: 0ms;
+$DEFAULT_DURATION: 350ms;
+$DEFAULT_FILL_MODE: forwards;
+
+// TODO: Documentar e refatorar.
+// TODO: Develop mixin to combine animations.
+// TODO: Config map parameter to set animation settings.
+
+@mixin combine($animations) {
+}
+
+@mixin fade(
+	$direction: in,
+	$duration: $DEFAULT_DURATION,
+	$time-function: ease,
+	$fill-mode: $DEFAULT_FILL_MODE,
+	$delay: $DEFAULT_DELAY
+) {
+	$direction-map: (
+		in: (
+			from: 0,
+			to: 1,
+		),
+		out: (
+			from: 1,
+			to: 0,
+		),
+	);
+
+	@keyframes fade {
+		from {
+			opacity: map.get($direction-map, $direction, from);
+		}
+		to {
+			opacity: map.get($direction-map, $direction, to);
+		}
+	}
+
+	animation: fade $duration $time-function $delay $fill-mode;
+}
+
+@mixin progress(
+	$duration: $DEFAULT_DURATION,
+	$time-function: linear,
+	$fill-mode: $DEFAULT_FILL_MODE,
+	$delay: $DEFAULT_DELAY
+) {
+	@keyframes progress {
+		from {
+			transform: scaleX(0);
+		}
+		to {
+			transform: scaleX(1);
+		}
+	}
+
+	transform-origin: left;
+	animation: progress $duration $time-function $delay $fill-mode;
+}
+
+@mixin slide(
+	$way: in,
+	$direction: left,
+	$duration: $DEFAULT_DURATION,
+	$time-function: ease,
+	$fill-mode: $DEFAULT_FILL_MODE,
+	$delay: $DEFAULT_DELAY
+) {
+	$way-map: (
+		in: (
+			from: (
+				top: 0 -100vh,
+				right: 100vw 0,
+				bottom: 0 100vh,
+				left: -100vw 0,
+			),
+			to: 0 0,
+		),
+
+		out: (
+			from: 0 0,
+			to: (
+				top: 0 -100vh,
+				right: 100vw 0,
+				bottom: 0 100vh,
+				left: -100vw 0,
+			),
+		),
+	);
+
+	$dir-map: map.get($way-map, $way);
+
+	@keyframes slide {
+		from {
+			translate: map.get($dir-map, from, $direction);
+		}
+		to {
+			translate: map.get($dir-map, to, $direction);
+		}
+	}
+
+	animation: slide $duration $time-function $delay $fill-mode;
+}
+
+@mixin no-no(
+	$duration: $DEFAULT_DURATION,
+	$time-function: ease,
+	$fill-mode: $DEFAULT_FILL_MODE,
+	$delay: $DEFAULT_DELAY
+) {
+	@keyframes no-no {
+		0% {
+			translate: 0 0;
+		}
+		25% {
+			translate: 10% 0;
+		}
+		75% {
+			translate: -10% 0;
+		}
+		100% {
+			translate: 0 0;
+		}
+	}
+
+	animation: no-no $duration 2 $time-function $delay $fill-mode;
+}

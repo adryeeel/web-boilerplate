@@ -8,8 +8,9 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"@sass-utils": path.resolve(__dirname, "src/styles/sass/utilities"),
+			"@sass": path.resolve(__dirname, "src/styles/sass"),
 			"@home": path.resolve(pagesRoot, "home/sass"),
-			"@login": path.resolve(pagesRoot, "login/sass"),
+			"@auth": path.resolve(pagesRoot, "auth/sass"),
 		},
 	},
 	server: {
@@ -19,7 +20,7 @@ export default defineConfig({
 		rollupOptions: {
 			input: {
 				home: path.resolve(pagesRoot, "home/index.html"),
-				login: path.resolve(pagesRoot, "login/index.html"),
+				auth: path.resolve(pagesRoot, "auth/index.html"),
 			},
 		},
 	},

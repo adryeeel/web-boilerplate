@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "@sass/animations";
 @use "@sass-utils/variables";
 
 // TODO: Mixins to set animations.
@@ -40,7 +41,7 @@
 			var(--color--alert--200)
 		);
 
-		animation: progress 5s linear 500ms forwards;
+		@include animations.progress(5s, 500ms, linear, forwards);
 	}
 
 	&__icon {

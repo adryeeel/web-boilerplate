@@ -1,11 +1,7 @@
 @use "base";
 @use "themes";
-@use "animations";
 @use "components";
 @use "utilities/inliners";
 
-@use "@home/home-layout";
-@use "@home/home-components";
-
-@use "@login/login-layout";
-@use "@login/login-components";
+@use "@home" as home;
+@use "@auth" as auth;
