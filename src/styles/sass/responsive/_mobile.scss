@@ -1,0 +1,12 @@
+@use "sass:map";
+@use "@sass-utils/variables";
+
+$breakpoint--mobile: map.get(variablers.$breakpoint, mobile);
+
+@media only screen and (max-width: $breakpoint--mobile) {
+	:root {
+		--font--size--body: #{map.get(variables.$font-sizes, 400)};
+	}
+}
+
+// TODO: Default mobile reponsive
