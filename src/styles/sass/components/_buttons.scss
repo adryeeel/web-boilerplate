@@ -1,12 +1,383 @@
+@use "sass:math";
+@use "sass:color";
+
+@use "@sass/animations";
 @use "@sass-utils/variables";
 
-// TODO: Switch button.
+// TODO: Componentizar os botoes switch para JS.
 
 button.button--reset {
-  border: 0;
-  font-family: inherit;
+	border: 0;
+	font-family: inherit;
 }
 
-button {
-  
+@mixin configure($button, $config: ()) {
+}
+
+.button--switch {
+	$switch--disc--size: 1em;
+	$switch--width: calc($switch--disc--size * 3);
+	$switch--padding: calc($switch--disc--size / 4);
+
+	display: inline-block;
+
+	&__slider {
+		width: $switch--width;
+		padding: $switch--padding;
+
+		cursor: pointer;
+		border-radius: 5rem;
+		background: var(--color--theme--700);
+
+		display: block;
+		transition: background 400ms ease;
+
+		&::before {
+			content: "";
+			display: block;
+
+			width: $switch--disc--size;
+			height: $switch--disc--size;
+
+			border-radius: 5rem;
+			background: var(--color--theme--300);
+
+			transition: width 100ms ease, margin-left 100ms ease,
+				translate 350ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		}
+
+		&:active::before {
+			width: $switch--disc--size * 1.8;
+		}
+	}
+
+	&__checkbox {
+		display: none;
+	}
+
+	&__checkbox:checked + &__slider {
+		background: var(--color--main--500);
+
+		&::before {
+			translate: calc(
+				$switch--width - $switch--disc--size - $switch--padding * 2
+			);
+		}
+
+		&:active::before {
+			margin-left: -$switch--disc--size * 0.8;
+		}
+	}
+}
+
+.button--switch--theme {
+	$color--switch--disc--sun: hsl(50, 60%, 60%);
+	$color--switch--disc--moon: hsl(50, 50%, 80%);
+	$color--switch--disc--moon--darken: hsl(49, 50%, 70%);
+	$color--switch--slider--sky: hsl(200, 75%, 50%);
+	$color--switch--slider--space: hsl(230, 75%, 35%);
+
+	$transition--duration: 350ms;
+
+	$switch--disc--size: 1;
+	$switch--size: $switch--disc--size * 3;
+	$switch--padding: math.div($switch--disc--size, 4);
+
+	display: inline-block;
+	margin-top: 100px;
+
+	&__slider,
+	&__disc {
+		display: block;
+		overflow: hidden;
+		position: relative;
+	}
+
+	&__slider {
+		width: $switch--size + em;
+		padding: $switch--padding + em;
+
+		cursor: pointer;
+		border-radius: 5rem;
+
+		transition: background $transition--duration linear;
+		background: $color--switch--slider--sky;
+	}
+
+	&__disc {
+		border-radius: inherit;
+		box-shadow: 0 0 1em #ffffffb3;
+
+		z-index: 10;
+		position: relative;
+
+		width: $switch--disc--size + em;
+		height: $switch--disc--size + em;
+
+		background: $color--switch--disc--sun;
+		transition: translate $transition--duration ease,
+			background $transition--duration ease;
+	}
+
+	&__crater {
+		position: absolute;
+		display: inline-block;
+
+		transform: rotate(45deg) translateX(#{-$switch--size}em);
+		transition: transform $transition--duration;
+
+		&:nth-child(1) {
+			width: 100%;
+			height: 100%;
+
+			top: -10%;
+			left: -10%;
+			border-radius: inherit;
+
+			background: $color--switch--disc--moon;
+		}
+
+		&:not(:nth-child(1)) {
+			border-radius: 50%;
+			background: $color--switch--disc--moon--darken;
+		}
+
+		&:nth-child(2) {
+			width: 20%;
+			height: 20%;
+
+			top: 5%;
+			right: 5%;
+		}
+
+		&:nth-child(3) {
+			width: 15%;
+			height: 15%;
+
+			top: 45%;
+			right: 30%;
+		}
+
+		&:nth-child(4) {
+			width: 10%;
+			height: 10%;
+
+			top: 75%;
+			right: 40%;
+		}
+
+		&:nth-child(5) {
+			width: 13%;
+			height: 13%;
+
+			top: 25%;
+			right: 50%;
+		}
+
+		&:nth-child(6) {
+			width: 13%;
+			height: 13%;
+
+			top: 30%;
+			left: 5%;
+		}
+
+		&:nth-child(7) {
+			width: 12%;
+			height: 12%;
+
+			bottom: 30%;
+			left: -2%;
+		}
+	}
+
+	&__star,
+	&__comet {
+		position: absolute;
+		display: inline-block;
+
+		background: #ffffff;
+	}
+
+	&__star {
+		border-radius: 50%;
+		box-shadow: 0 0 0.2rem #00000027;
+		transition: $transition--duration - 50ms;
+
+		@include animations.floating(horizontal, 20%, 2s);
+
+		&:nth-of-type(2),
+		&:nth-of-type(5) {
+			z-index: 3;
+
+			top: 10%;
+			right: 45%;
+
+			width: $switch--size * 0.15em;
+			height: $switch--size * 0.15em;
+		}
+
+		&:nth-of-type(3),
+		&:nth-of-type(6) {
+			z-index: 2;
+
+			top: 10% + 3%;
+			right: 35%;
+
+			width: $switch--size * 0.13em;
+			height: $switch--size * 0.13em;
+		}
+
+		&:nth-of-type(4),
+		&:nth-of-type(7) {
+			z-index: 1;
+
+			top: 10% + 8%;
+			right: 28%;
+
+			width: $switch--size * 0.1em;
+			height: $switch--size * 0.1em;
+		}
+
+		&:nth-of-type(5) {
+			top: 55%;
+			right: 45% - 15%;
+
+			animation-delay: 1s;
+		}
+
+		&:nth-of-type(6) {
+			top: 55%;
+			right: 35% - 15%;
+
+			animation-delay: 1s;
+		}
+
+		&:nth-of-type(7) {
+			top: 55% + 4%;
+			right: 28% - 15%;
+
+			animation-delay: 1s;
+		}
+	}
+
+	&__checkbox {
+		display: none;
+	}
+
+	&__checkbox:checked + &__slider {
+		background: $color--switch--slider--space;
+	}
+
+	&__checkbox:checked + &__slider &__disc {
+		$translate-x-size: #{$switch--size - $switch--disc--size - $switch--padding *
+			2}em;
+
+		background: $color--switch--disc--moon--darken;
+		translate: $translate-x-size 0;
+	}
+
+	&__checkbox:checked + &__slider &__crater {
+		transform: rotate(0deg) translateX(0);
+	}
+
+	&__checkbox:checked + &__slider &__star {
+		border-radius: 50%;
+		box-shadow: 0 0 1px 0.5px #ffffff;
+
+		animation: none;
+
+		&:nth-of-type(2) {
+			width: $switch--size * 0.04em;
+			height: $switch--size * 0.04em;
+
+			top: 20%;
+			left: 15%;
+		}
+
+		&:nth-of-type(3) {
+			width: $switch--size * 0.02em;
+			height: $switch--size * 0.02em;
+
+			top: 60%;
+			left: 15%;
+		}
+
+		&:nth-of-type(4) {
+			width: $switch--size * 0.035em;
+			height: $switch--size * 0.035em;
+
+			top: 20%;
+			left: 50%;
+		}
+
+		&:nth-of-type(5) {
+			width: $switch--size * 0.03em;
+			height: $switch--size * 0.03em;
+
+			top: 75%;
+			left: 35%;
+		}
+
+		&:nth-of-type(6) {
+			width: $switch--size * 0.04em;
+			height: $switch--size * 0.04em;
+
+			top: 50%;
+			left: 50%;
+		}
+
+		&:nth-of-type(7) {
+			width: $switch--size * 0.025em;
+			height: $switch--size * 0.025em;
+
+			top: 40%;
+			left: 30%;
+		}
+	}
+
+	&__checkbox:checked + &__slider &__comet {
+		$translate--value: 1em * 3;
+
+		width: 1rem;
+		height: 0.25rem;
+
+		border-radius: 2px;
+		animation: comet 2s ease-out infinite;
+		box-shadow: -0.5rem 0 0.2rem 0.05rem #ffffffcc;
+
+		transform: rotate(-45deg) translateX(-$translate--value);
+
+		@keyframes comet {
+			to {
+				opacity: 0;
+				box-shadow: none;
+				transform: rotate(-45deg) translateX($translate--value);
+
+				width: 0.1rem;
+				height: 0.1rem;
+			}
+		}
+
+		&:nth-of-type(n + 5) {
+			top: 25%;
+			left: 20%;
+
+			animation-delay: 1s;
+		}
+
+		&:nth-of-type(2n + 5) {
+			top: 55%;
+			left: 40%;
+
+			animation-delay: 2.2s;
+		}
+
+		&:nth-of-type(3n + 5) {
+			top: 75%;
+			left: 15%;
+
+			animation-delay: 1.5s;
+		}
+	}
 }

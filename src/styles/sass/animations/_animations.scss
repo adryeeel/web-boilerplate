@@ -127,3 +127,31 @@ $DEFAULT_FILL_MODE: forwards;
 
 	animation: no-no $duration 2 $time-function $delay $fill-mode;
 }
+
+@mixin floating(
+	$direction: horizontal,
+	$length: 10%,
+	$duration: $DEFAULT_DURATION,
+	$time-function: ease-out,
+	$fill-mode: $DEFAULT_FILL_MODE,
+	$delay: $DEFAULT_DELAY
+) {
+	$direction-map: (
+		horizontal: $length 0,
+		vertical: 0 $length,
+	);
+
+	@keyframes floating {
+		from {
+			translate: 0 0;
+		}
+		50% {
+			translate: map.get($direction-map, $direction);
+		}
+		to {
+			translate: 0 0;
+		}
+	}
+
+	animation: floating $duration $time-function infinite;
+}
