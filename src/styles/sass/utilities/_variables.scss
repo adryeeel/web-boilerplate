@@ -3,8 +3,6 @@
 
 @use "config";
 
-// TODO: Padronize system for margins and paddings
-
 $-hue: config.$hue !default;
 
 $palette--main: (
@@ -137,6 +135,10 @@ $shadows--light: (
 	400: 0 16px 32px #ffffff20,
 	500: 0 20px 40px #ffffff20,
 );
+
+// TODO: Padronize system for margins and paddings
+$margins--responsive: ();
+$paddings--responsive: ();
 
 $max-width: 120rem !default;
 $min-height: 100vh !default;

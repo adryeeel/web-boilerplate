@@ -1,7 +1,8 @@
 @use "sass:map";
 
+@use "@sass-utils/mixins";
+@use "@sass-utils/config";
 @use "@sass-utils/variables";
-@use "@sass-utils/functions";
 
 // Typography configuration
 
@@ -24,16 +25,4 @@ h6 {
 	font-family: map.get(variables.$font-stacks, headings);
 }
 
-// TODO: Refactor this code to @mixin and configure scss file.
-@for $headingNumber from 1 through 6 {
-	$fontSizeBase: 52;
-
-	$headingFontSize: functions.calculateHeadingFontSize(
-		$fontSizeBase,
-		$headingNumber
-	);
-
-	h#{$headingNumber} {
-		font-size: functions.convertValueToREM($headingFontSize);
-	}
-}
+@include mixins.set-headings-size(config.$headings--font-size--base);

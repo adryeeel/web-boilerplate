@@ -249,9 +249,14 @@
 	$shadow: ();
 	$color: $shadow-color;
 
-	// This variable stores the lightning step that will be used as strength to calculate the color of each shadow layer.
-	// The step is calculated with the $shadow-lightning value by the $shadow-depth, so the step * $i will never be greater than
-	// 100%, which is not accepted by the $lightness parameter on color.scale() function.
+	/**
+	* This variable stores the lightning step that will be used as strength to 
+	* calculate the color of each shadow layer.
+	*
+	* The step is calculated with the $shadow-lightning value by the 
+	* $shadow-depth, so the step * $i will never be greater than 100%, which is 
+	* not accepted by the $lightness parameter on color.scale() function.
+	*/
 	$lightning-formula: math.div($shadow-lightning, $shadow-depth);
 
 	@for $i from 1 through $shadow-depth {
@@ -346,4 +351,41 @@
 	}
 
 	#{$property}: $value;
+}
+
+/**
+* @Mixin to define a customizable HTML headings font-size.
+*
+* This mixins defines a gradual font-size for HTML headings based on a 
+* font-size base value.
+*
+*	@Param $font-size-base: Number.
+*
+*/
+@mixin set-headings-size($font-size-base) {
+	@for $heading-number from 1 through 6 {
+		$heading-font-size: _calculate-heading-font-size(
+			$font-size-base,
+			$heading-number
+		);
+
+		h#{$heading-number} {
+			font-size: #{$heading-font-size}rem;
+		}
+	}
+}
+
+/**
+* @Function to auxiliate the set-heading-size @mixin.
+*
+* This function calculates the heading size for a HTML heading based on the 
+* font-size base value and the its heading number.
+*
+*	@Param $font-size-base: Number.
+*	@Param $heading-number: Number: >= 1 && <= 6.
+*
+*/
+@function _calculate-heading-font-size($font-size-base, $heading-number) {
+	$heading-step: 3 - $heading-number + 1;
+	@return $font-size-base * math.pow(2, math.div($heading-step, 5));
 }

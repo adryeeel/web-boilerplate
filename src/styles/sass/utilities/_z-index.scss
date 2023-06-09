@@ -1,18 +1,29 @@
 @use "sass:list";
 @use "sass:map";
 
-// Z-index organization by elevation map.
+// System to manage z-index values.
 
 // The z-index value is assigned based on its position (index value) in the elevation map below. The last element in the list has the higher z-index value because that element have higher index value in the map.
-$main-layer-tree: (
-	header: (),
-	main: (),
+
+// The system uses a elevation map to organize the page elements like a tree. The z-index value is defined based on the element's index position. This value is found and assigned to the element's z-index CSS property.
+
+// In the map, elements must be positioned in ascending order, that is: elements with the highest z-index must be defined last in the map; elements with smaller z-index, must be defined first in the map.
+
+// Any time an element needs a z-index value, the elevation map needs to be modified to include that element. Once included, the system can determine the value for its z-index based on its position in the map.
+
+// Each element in the elevation map is another map. Its childrens are nested in the parent. Each parent must create a z-index context so that the z-index of its children are relative to the parents context. So, if you define a z-index value for a children, you need to define for the parent too.
+
+// With this structure, it's possible to keep some control with the z-index values used and not end up with properties of type `z-index: 9999`.
+
+$elements-tree: (
 	footer: (),
+	main: (),
+	header: (),
 );
 
 @function foundIndexValue($layers-list) {
 	$found-index: null;
-	$elevation-map: $main-layer-tree;
+	$elevation-map: $elements-tree;
 
 	@each $key in $layers-list {
 		@if (type-of($elevation-map) == "map") {
@@ -24,7 +35,7 @@ $main-layer-tree: (
 		}
 
 		@if ($found-index == null) {
-			@error "'#{$key}' is not part of the elevation map: `#{$main-layer-tree}`";
+			@error "'#{$key}' is not part of the elevation map: `#{$elements-tree}`";
 		}
 	}
 
