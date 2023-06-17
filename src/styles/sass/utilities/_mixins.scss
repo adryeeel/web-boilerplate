@@ -1,9 +1,10 @@
-@use "sass:color";
 @use "sass:map";
+@use "sass:color";
 @use "sass:list";
 @use "sass:math";
 
 @use "variables";
+@use "functions";
 
 /**
 * @Mixin for align flex elements.
@@ -364,7 +365,7 @@
 */
 @mixin set-headings-size($font-size-base) {
 	@for $heading-number from 1 through 6 {
-		$heading-font-size: _calculate-heading-font-size(
+		$heading-font-size: functions.calculate-heading-font-size(
 			$font-size-base,
 			$heading-number
 		);
@@ -376,16 +377,15 @@
 }
 
 /**
-* @Function to auxiliate the set-heading-size @mixin.
+* @Mixin to set the font color based on its background-color.
 *
-* This function calculates the heading size for a HTML heading based on the 
-* font-size base value and the its heading number.
+* This mixins defines a font color to a element based on its background-color. 
+* This mixin helps achive the contrast ratio accessibility by WCAG.
 *
-*	@Param $font-size-base: Number.
-*	@Param $heading-number: Number: >= 1 && <= 6.
+*	@Param $background-color: Color.
 *
 */
-@function _calculate-heading-font-size($font-size-base, $heading-number) {
-	$heading-step: 3 - $heading-number + 1;
-	@return $font-size-base * math.pow(2, math.div($heading-step, 5));
+@mixin set-font-color($background-color) {
+	$font-color: functions.get-font-color($background-color);
+	color: $font-color;
 }

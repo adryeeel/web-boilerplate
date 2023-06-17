@@ -1,17 +1,134 @@
+@use "sass:map";
 @use "sass:math";
 @use "sass:color";
 
 @use "@sass/animations";
 @use "@sass-utils/variables";
+@use "@sass-utils/mixins";
+@use "@sass-utils/functions";
 
 // TODO: Componentizar os botoes switch para JS.
 
-button.button--reset {
+$color--button: map.get(variables.$palette--main, 500);
+$color--font: functions.get-font-color($color--button);
+
+button {
 	border: 0;
-	font-family: inherit;
+	cursor: pointer;
 }
 
-@mixin configure($button, $config: ()) {
+button.button {
+	@include mixins.set-font-color($color--button);
+
+	border-radius: 1rem;
+	background: var(--color--main--500);
+	box-shadow: 0 0.3em 0px var(--color--main--600);
+
+	padding: 0.5em 2em;
+
+	transition: background 500ms, color 500ms;
+
+	&:active {
+		translate: 0 0.2em;
+		box-shadow: 0 0.1em 0px var(--color--main--600);
+	}
+}
+
+button.button--disabled {
+	cursor: not-allowed;
+	color: var(--color--theme--900);
+
+	background: var(--color--theme--500);
+	box-shadow: 0 0.3em 0px var(--color--theme--600);
+
+	transition: 500ms;
+
+	&:active {
+		translate: none;
+		box-shadow: 0 0.3em 0px var(--color--theme--600);
+	}
+}
+
+button.button--loading {
+	$animation-duration: 600ms;
+
+	&::before {
+		@include mixins.absolute-align(both);
+
+		content: "";
+		position: absolute;
+
+		width: 1em;
+		height: 1em;
+
+		border: 1px solid red;
+
+		border-radius: 50%;
+		border: .15em solid $color--font;
+		border-top-color: currentColor;
+
+		animation: spin $animation-duration linear infinite;
+	}
+
+	@keyframes spin {
+		from {
+			rotate: 0;
+		}
+
+		to {
+			rotate: 360deg;
+		}
+	}
+}
+
+button.button--loading--drop {
+	$animation-duration: 600ms;
+
+	&::before,
+	&::after {
+		@include mixins.absolute-align(both);
+
+		content: "";
+		position: absolute;
+
+		border-radius: 50%;
+		border: 0.15em solid $color--font;
+
+		animation: loading--water-drop $animation-duration linear infinite;
+	}
+
+	&::after {
+		animation-delay: math.div($animation-duration, 2);
+	}
+
+	@keyframes loading--water-drop {
+		from {
+			width: 0;
+			height: 0;
+
+			opacity: 0;
+		}
+		50% {
+			opacity: 1;
+		}
+		to {
+			width: 2em;
+			height: 2em;
+
+			opacity: 0;
+		}
+	}
+}
+
+button:is(.button--loading, .button--loading--drop) {
+	cursor: progress;
+	position: relative;
+	color: var(--color--main--500);
+
+	&:active {
+		translate: none;
+		box-shadow: 0 0.3em 0px var(--color--main--600);
+	}
 }
 
 .button--switch {
@@ -70,6 +187,8 @@ button.button--reset {
 	}
 }
 
+// TODO: On theme switch button component, check the system theme to set the button to dark or light style. Change the button to checked or unchecked.
+
 .button--switch--theme {
 	$color--switch--disc--sun: hsl(50, 60%, 60%);
 	$color--switch--disc--moon: hsl(50, 50%, 80%);
@@ -84,7 +203,6 @@ button.button--reset {
 	$switch--padding: math.div($switch--disc--size, 4);
 
 	display: inline-block;
-	margin-top: 100px;
 
 	&__slider,
 	&__disc {
@@ -204,14 +322,14 @@ button.button--reset {
 		box-shadow: 0 0 0.2rem #00000027;
 		transition: $transition--duration - 50ms;
 
-		@include animations.floating(horizontal, 20%, 2s);
+		@include animations.floating(vertical, 20%, 2s linear infinite);
 
 		&:nth-of-type(2),
 		&:nth-of-type(5) {
 			z-index: 3;
 
 			top: 10%;
-			right: 45%;
+			right: 40%;
 
 			width: $switch--size * 0.15em;
 			height: $switch--size * 0.15em;
@@ -222,7 +340,7 @@ button.button--reset {
 			z-index: 2;
 
 			top: 10% + 3%;
-			right: 35%;
+			right: 30%;
 
 			width: $switch--size * 0.13em;
 			height: $switch--size * 0.13em;
@@ -233,7 +351,7 @@ button.button--reset {
 			z-index: 1;
 
 			top: 10% + 8%;
-			right: 28%;
+			right: 23%;
 
 			width: $switch--size * 0.1em;
 			height: $switch--size * 0.1em;

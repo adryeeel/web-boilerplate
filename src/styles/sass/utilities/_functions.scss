@@ -1,5 +1,52 @@
+@use "sass:map";
 @use "sass:math";
+@use "sass:color";
 
+@use "variables";
+
+/**
+* @Function to auxiliate the set-font-color @mixin.
+*
+* This function is used to find the correct font-color color based on the 
+* background-color lightness.
+*
+* @Param $background-color: Color.
+*
+* @Returns the found font color.
+*/
+@function get-font-color($background-color) {
+	@if (color.lightness($background-color) >= 50) {
+		@return map.get(variables.$palette--main, 100);
+	}
+
+	@return map.get(variables.$palette--main, 900);
+}
+
+/**
+* @Function to auxiliate the set-heading-size @mixin.
+*
+* This function calculates the heading size for a HTML heading based on the 
+* font-size base value and the its heading number.
+*
+*	@Param $font-size-base: Number.
+*	@Param $heading-number: Number: >= 1 && <= 6.
+*
+* @Returns the calculated font-size without units.
+*/
+@function calculate-heading-font-size($font-size-base, $heading-number) {
+	$heading-step: 3 - $heading-number + 1;
+	@return $font-size-base * math.pow(2, math.div($heading-step, 5));
+}
+
+/**
+* @Function to convert a certain value to rem units
+*
+* This function converts a number to rem units in base 10. So, 1rem equals 10px.
+*
+* @Param $value: Number.
+*
+* @Returns the converted $value in REM units.
+*/
 @function convertValueToREM($value) {
 	@return #{math.div(math.floor($value), 10)}rem;
 }

@@ -1,5 +1,5 @@
-@use "sass:color";
 @use "sass:map";
+@use "sass:color";
 
 @use "config";
 
@@ -120,6 +120,7 @@ $font-stacks: (
 	),
 ) !default;
 
+// TODO: Refactor to em units.
 $shadows--dark: (
 	100: 0 4px 8px #00000030,
 	200: 0 8px 16px #00000030,
@@ -128,6 +129,7 @@ $shadows--dark: (
 	500: 0 20px 40px #00000030,
 );
 
+// TODO: Refactor to em units.
 $shadows--light: (
 	100: 0 4px 8px #ffffff20,
 	200: 0 8px 16px #ffffff20,
@@ -136,9 +138,29 @@ $shadows--light: (
 	500: 0 20px 40px #ffffff20,
 );
 
-// TODO: Padronize system for margins and paddings
-$margins--responsive: ();
-$paddings--responsive: ();
+$margins--responsive: (
+	100: 2vmin,
+	200: 4vmin,
+	300: 6vmin,
+	400: 8vmin,
+	500: 10vmin,
+	600: 12vmin,
+	700: 14vmin,
+	800: 16vmin,
+	900: 18vmin,
+);
+
+$paddings--responsive: (
+	100: 2vmin,
+	200: 4vmin,
+	300: 6vmin,
+	400: 8vmin,
+	500: 10vmin,
+	600: 12vmin,
+	700: 14vmin,
+	800: 16vmin,
+	900: 18vmin,
+);
 
 $max-width: 120rem !default;
 $min-height: 100vh !default;

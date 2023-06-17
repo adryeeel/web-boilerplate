@@ -27,11 +27,71 @@
 
 		<!-- Link JS Script -->
 		<script type="module" src="home.js" defer></script>
-	</head>	
+	</head>
 	<body id="home" data-theme="system">
 		<header class="header"></header>
 
 		<main class="main">
+			<div class="alert alert--error">
+				<div class="alert__icon">
+					<i class="fa-solid fa-circle-info"></i>
+				</div>
+				<div class="alert__message">
+					<p class="alert__message__title">Info!</p>
+					<p class="alert__message__text">Registro concluído.</p>
+				</div>
+				<div class="alert__close">
+					<button class="alert__close__button">
+						<i class="fa-solid fa-xmark alert__close__button__icon"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="alert alert--warning">
+				<div class="alert__icon">
+					<i class="fa-solid fa-circle-info"></i>
+				</div>
+				<div class="alert__message">
+					<p class="alert__message__title">Info!</p>
+					<p class="alert__message__text">Registro concluído.</p>
+				</div>
+				<div class="alert__close">
+					<button class="alert__close__button">
+						<i class="fa-solid fa-xmark alert__close__button__icon"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="alert alert--info">
+				<div class="alert__icon">
+					<i class="fa-solid fa-circle-info"></i>
+				</div>
+				<div class="alert__message">
+					<p class="alert__message__title">Info!</p>
+					<p class="alert__message__text">Registro concluído.</p>
+				</div>
+				<div class="alert__close">
+					<button class="alert__close__button">
+						<i class="fa-solid fa-xmark alert__close__button__icon"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="alert alert--success">
+				<div class="alert__icon">
+					<i class="fa-solid fa-circle-info"></i>
+				</div>
+				<div class="alert__message">
+					<p class="alert__message__title">Info!</p>
+					<p class="alert__message__text">Registro concluído.</p>
+				</div>
+				<div class="alert__close">
+					<button class="alert__close__button">
+						<i class="fa-solid fa-xmark alert__close__button__icon"></i>
+					</button>
+				</div>
+			</div>
+
 			<label class="button--switch">
 				<input type="checkbox" class="button--switch__checkbox" />
 				<span class="button--switch__slider"></span>
@@ -62,8 +122,12 @@
 					<span class="button--switch--theme__comet"></span>
 					<span class="button--switch--theme__comet"></span>
 				</span>
-					
 			</label>
+
+			<button class="button">Comprar agora</button>
+			<button class="button button--disabled">Desativado</button>
+			<button class="button button--loading--drop">Compre agora</button>
+			<button class="button button--loading">Compre agora</button>
 		</main>
 
 		<footer class="footer"></footer>

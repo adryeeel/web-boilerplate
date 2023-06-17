@@ -21,7 +21,10 @@
 	color: var(--color--alert--800);
 	background-color: var(--color--alert--200);
 
-	animation: slide-in 700ms forwards, slide-out 700ms ease-in 5.5s forwards;
+	// TODO: Refactor to animation mixins
+	// animation: slide-in 700ms forwards, slide-out 700ms ease-in 5.5s forwards;
+
+	@include animations.slide(in left, 700ms ease forwards);
 
 	&::before {
 		content: "";
@@ -41,7 +44,7 @@
 			var(--color--alert--200)
 		);
 
-		@include animations.progress(5s, 500ms, linear, forwards);
+		@include animations.progress(3s linear 5s forwards);
 	}
 
 	&__icon {

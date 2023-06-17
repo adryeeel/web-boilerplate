@@ -8,5 +8,13 @@
 		--color--main--#{$i * 100}: #{map.get(variables.$palette--main, $i * 100)};
 	}
 
+	@for $i from 1 through 9 {
+		--padding--responsive--#{$i * 100}: #{map.get(variables.$paddings--responsive, $i * 100)};
+	}
+
+	@for $i from 1 through 9 {
+		--margin--responsive--#{$i * 100}: #{map.get(variables.$margins--responsive, $i * 100)};
+	}
+
 	--font--size--body: #{map.get(variables.$font-sizes, 500)};
 }
