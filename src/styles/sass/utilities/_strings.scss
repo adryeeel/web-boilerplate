@@ -1,0 +1,142 @@
+@use "sass:list";
+@use "sass:string";
+@use "sass:meta";
+
+@use "functions";
+
+@function join($strings-list, $separator: " ") {
+	$joined-string: "";
+
+	@if meta.type-of($strings-list) != list {
+		@error "#{$strings-list} argument is not a list.";
+	}
+
+	@each $element in $strings-list {
+		$joined-string: $joined-string + $element + $separator;
+	}
+
+	$joined-string: trim($joined-string, $separator, end);
+
+	@return $joined-string;
+}
+
+@function contains($string, $toSearch) {
+	$toSearch-length: string.length($toSearch);
+	$substring-index: string.index($string, $toSearch);
+
+	@if $substring-index != null {
+		$substring-found: string.slice(
+			$string,
+			$substring-index,
+			$substring-index + $toSearch-length - 1
+		);
+
+		@if $substring-found == $toSearch {
+			@return true;
+		}
+	}
+
+	@return false;
+}
+
+@function -split-helper($string) {
+	$splitted: ();
+
+	@for $i from 1 through string.length($string) {
+		$character: string.slice($string, $i, $i);
+		$splitted: list.append($splitted, $character);
+	}
+
+	@return $splitted;
+}
+
+@function split($string, $separator: " ") {
+	// TODO: Verifição de espaços consecutivos. Separador deve conter espacos? Ou separá-los?
+
+	@if meta.type-of($strign) != string {
+		@error "#{$string}: #{meta.type-of($strign)} is not a string.";
+		@return null;
+	}
+
+	@if $separator == "" {
+		@return -split-helper($string);
+	}
+
+	@if not contains($string, $separator) {
+		@return null;
+	}
+
+	$word: "";
+	$string-index: 1;
+
+	$splitted-string: ();
+	$splitted-separator: -split-helper($separator);
+
+	$string-length: string.length($string);
+	$separator-length: string.length($separator);
+
+	@for $i from 1 through $string-length {
+		$character: string.slice($string, $string-index, $string-index);
+
+		@if functions.list-includes($splitted-separator, $character) {
+			$splitted-string: list.append($splitted-string, $word);
+			$word: "";
+
+			$string-index: $string-index + $separator-length;
+		} @else {
+			$word: $word + $character;
+			$string-index: $string-index + 1;
+		}
+	}
+
+	$splitted-string: list.append($splitted-string, $word);
+
+	@return $splitted-string;
+}
+
+@function trim($string, $toTrim: " ", $option: both) {
+	$string-length: string.length($string);
+	$toTrim-length: string.length($toTrim);
+
+	$trimmed-string: $string;
+
+	@if $option == start {
+		$toTrim-string: string.slice($string, 1, $toTrim-length);
+
+		@if $toTrim-string == $toTrim {
+			$trimmed-string: string.slice($string, $toTrim-length + 1);
+		}
+	}
+
+	@if $option == end {
+		$toTrim-string: string.slice($string, $string-length - $toTrim-length + 1);
+
+		@if $toTrim-string == $toTrim {
+			$trimmed-string: string.slice(
+				$string,
+				1,
+				$string-length - $toTrim-length
+			);
+		}
+	}
+
+	@if $option == both {
+		$toTrim-string: string.slice($string, 1, $toTrim-length);
+
+		@if $toTrim-string == $toTrim {
+			$trimmed-start: string.slice($string, $toTrim-length + 1);
+			$trimmed-start-length: string.length($trimmed-start);
+
+			$trimmed-string: string.slice(
+				$trimmed-start,
+				1,
+				$trimmed-start-length - $toTrim-length
+			);
+		}
+	}
+
+	@return $trimmed-string;
+}
+
+@function replace() {
+}

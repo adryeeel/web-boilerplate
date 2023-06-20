@@ -1,21 +1,19 @@
 @use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+@use "sass:string";
 
-$DEFAULT_DELAY: 0ms;
-$DEFAULT_DURATION: 350ms;
-$DEFAULT_FILL_MODE: forwards;
+@use "@sass-utils/functions";
+@use "@sass-utils/strings";
 
-// TODO: Documentar e refatorar.
-// TODO: Develop mixin to combine animations.
-// TODO: Config map parameter to set animation settings.
-
-//  
+// TODO: Documentar; Error handling.
 
 /**
 * @Mixin to set fade animation to an element.
 *
-* @Param $anim-config: animation shorthand configurations. This parameter 
-* format must be the same as the animation property shorthand, excluding the 
-* animation-name value.
+* @Param { String } $way: in | out
+* @Param { List } $anim-config: animation shorthand values, excluding 
+* animation-name
 *
 */
 @mixin fade($way: in, $anim-config: 300ms linear) {
@@ -30,24 +28,26 @@ $DEFAULT_FILL_MODE: forwards;
 		),
 	);
 
-	@keyframes fade {
+	$animation-name: fade - $way;
+
+	@keyframes #{$animation-name} {
 		from {
-			opacity: map.get($directions, $ways, from);
+			opacity: map.get($ways, $way, from);
 		}
 		to {
-			opacity: map.get($directions, $ways, to);
+			opacity: map.get($ways, $way, to);
 		}
 	}
 
-	animation: fade $anim-config;
+	animation: $animation-name $anim-config;
 }
 
 /**
 * @Mixin to set slide animation to an element.
 *
-* @Param $anim-config: animation shorthand configurations. This parameter 
-* format must be the same as the animation property shorthand, excluding the 
-* animation-name value.
+* @Param { List } $direction: 
+* @Param { List } $anim-config: animation shorthand values, excluding 
+* animation-name
 *
 */
 @mixin slide($direction: in left, $anim-config: 500ms ease-in-out forwards) {
@@ -94,7 +94,10 @@ $DEFAULT_FILL_MODE: forwards;
 			)
 	);
 
-	@keyframes slide {
+	$sufix: strings.join($direction, "-");
+	$animation-name: slide - string.unquote($sufix);
+
+	@keyframes #{$animation-name} {
 		from {
 			translate: map.get($directions, $direction, from);
 		}
@@ -103,18 +106,23 @@ $DEFAULT_FILL_MODE: forwards;
 		}
 	}
 
-	animation: slide $anim-config;
+	animation: $animation-name $anim-config;
 }
 
 /**
 * @Mixin to set floating animation to an element.
 *
-* @Param $anim-config: animation shorthand configurations. This parameter 
-* format must be the same as the animation property shorthand, excluding the 
-* animation-name value.
+* @Param { String } $orientation: vertical | horizontal.
+* @Param { Number + CSS unit } $distance: distance to be floated.
+* @Param { List } $anim-config: animation shorthand values, excluding 
+* animation-name.
 *
 */
-@mixin floating($orientation: vertical, $distance: 10%, $anim-config: 2s ease infinite) {
+@mixin floating(
+	$orientation: vertical,
+	$distance: 10%,
+	$anim-config: 2s ease infinite
+) {
 	$orientations: (
 		horizontal: $distance 0,
 		vertical: 0 $distance,
@@ -138,9 +146,8 @@ $DEFAULT_FILL_MODE: forwards;
 /**
 * @Mixin to set progress animation to an element.
 *	
-* @Param $anim-config: animation shorthand configurations. This parameter 
-* format must be the same as the animation property shorthand, excluding the 
-* animation-name value.
+* @Param { List } $anim-config: animation shorthand values, excluding 
+* animation-name
 *
 */
 @mixin progress($anim-config: 3s linear forwards) {
@@ -160,9 +167,8 @@ $DEFAULT_FILL_MODE: forwards;
 /**
 * @Mixin to set no-no animation to an element.
 *
-* @Param $anim-config: animation shorthand configurations. This parameter 
-* format must be the same as the animation property shorthand, excluding the 
-* animation-name value.
+* @Param { List } $anim-config: animation shorthand values, excluding 
+* animation-name
 *
 */
 @mixin no-no($anim-config: 150ms 2 linear) {
@@ -187,9 +193,8 @@ $DEFAULT_FILL_MODE: forwards;
 /**
 * @Mixin to set spin animation to an element.
 *
-* @Param $anim-config: animation shorthand configurations. This parameter 
-* format must be the same as the animation property shorthand, excluding the 
-* animation-name value.
+* @Param { List } $anim-config: animation shorthand values, excluding 
+* animation-name
 *
 */
 @mixin spin($anim-config: 600ms linear infinite) {
@@ -200,4 +205,67 @@ $DEFAULT_FILL_MODE: forwards;
 	}
 
 	animation: spin $anim-config;
+}
+
+/**
+* @Mixin to auxiliate the combine @mixin.
+*
+* @Param { List } $animation-list: ;
+*
+*/
+@function -get-animation-list-shorthand($animation-list) {
+	$COMPOUND_ANIMATION_NAMES: slide, fade;
+	$animation-shorthand-list: ();
+
+	@each $animation-map in $animation-list {
+		$mixin-name: map.get($animation-map, "name");
+
+		$animation-name: $mixin-name;
+		$animation-parameters: map.get($animation-map, "parameters");
+
+		@if functions.list-includes($COMPOUND_ANIMATION_NAMES, $mixin-name) {
+			$sufix: list.nth($animation-parameters, 1);
+
+			@if list.length($sufix) > 1 {
+				$sufix: strings.join($sufix, "-");
+			}
+
+			$animation-name: $animation-name - string.unquote($sufix);
+		}
+
+		$animation-shorthand: $animation-name list.nth($animation-parameters, -1);
+
+		$animation-shorthand-list: list.append(
+			$animation-shorthand-list,
+			$animation-shorthand,
+			$separator: "comma"
+		);
+	}
+
+	@return $animation-shorthand-list;
+}
+
+/**
+* @Mixin to set spin animation to an element.
+*
+* @Param { Argument List } $animations:
+*
+*/
+@mixin combine($animations...) {
+	$animation-shorthand-list: -get-animation-list-shorthand($animations);
+
+	@each $animation-map in $animations {
+		$mixin-name: map.get($animation-map, "name");
+		$animation-parameters: map.get($animation-map, "parameters");
+
+		@if $mixin-name == slide {
+			@include slide($animation-parameters...);
+		}
+
+		@if $mixin-name == fade {
+			@include fade($animation-parameters...);
+		}
+	}
+
+	animation: $animation-shorthand-list;
 }

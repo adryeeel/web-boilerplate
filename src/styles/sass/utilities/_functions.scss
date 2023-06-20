@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 @use "sass:color";
+@use "sass:list";
 
 @use "variables";
 
@@ -42,11 +43,19 @@
 * @Function to convert a certain value to rem units
 *
 * This function converts a number to rem units in base 10. So, 1rem equals 10px.
-*
 * @Param $value: Number.
 *
 * @Returns the converted $value in REM units.
 */
 @function convertValueToREM($value) {
 	@return #{math.div(math.floor($value), 10)}rem;
+}
+
+//
+@function list-includes($list, $element) {
+	@if list.index($list, $element) != null {
+		@return true;
+	}
+
+	@return false;
 }

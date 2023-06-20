@@ -18,18 +18,20 @@ body {
 	min-height: 100vh;
 }
 
+a,
 input,
 textarea,
 button,
 select {
 	font: inherit;
 	color: inherit;
+	-webkit-tap-highlight-color: transparent;
 }
 
 img,
 picture,
 svg,
 video {
-	max-width: 100%;
 	display: block;
+	max-width: 100%;
 }
