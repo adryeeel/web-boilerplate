@@ -64,7 +64,7 @@ button.button--loading {
 		border: 1px solid red;
 
 		border-radius: 50%;
-		border: .15em solid $color--font;
+		border: 0.15em solid $color--font;
 		border-top-color: currentColor;
 
 		animation: spin $animation-duration linear infinite;
@@ -497,5 +497,26 @@ button:is(.button--loading, .button--loading--drop) {
 
 			animation-delay: 1.5s;
 		}
+	}
+}
+
+.button--open-link {
+	text-decoration: none;
+	background: var(--color--main--500);
+
+	padding: 0.5em 1em;
+	border-radius: 1rem;
+
+	&:active {
+		background: var(--color--main--600);
+	}
+
+	&::before {
+		content: "\f08e";
+		font-family: "Font Awesome 6 Free";
+		font-weight: 900;
+
+		display: inline-block;
+		margin-right: 0.5em;
 	}
 }

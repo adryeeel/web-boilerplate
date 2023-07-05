@@ -45,7 +45,7 @@
 /**
 * @Mixin to set slide animation to an element.
 *
-* @Param { List } $direction: 
+* @Param { List } $direction: [in | out] [top | right | bottom | left]
 * @Param { List } $anim-config: animation shorthand values, excluding 
 * animation-name
 *
@@ -248,7 +248,7 @@
 /**
 * @Mixin to set spin animation to an element.
 *
-* @Param { Argument List } $animations:
+* @Param { Argument List } $animations: name: [ animation name ], parameters: (parameters used to configure the animation, separated by comma.)
 *
 */
 @mixin combine($animations...) {
