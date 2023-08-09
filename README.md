@@ -1,3 +1,3 @@
 # Boilerplate
 
-Boilerplate files for a web project
+Design system for web projects

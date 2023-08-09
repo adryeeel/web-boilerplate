@@ -7,8 +7,8 @@ const pagesRoot = path.resolve(__dirname, "src/pages");
 export default defineConfig({
 	resolve: {
 		alias: {
-			"@sass-utils": path.resolve(__dirname, "src/styles/sass/utilities"),
-			"@sass": path.resolve(__dirname, "src/styles/sass"),
+			"@sass-utils": path.resolve(__dirname, "src/sass/utilities"),
+			"@sass": path.resolve(__dirname, "src/sass"),
 			"@home": path.resolve(pagesRoot, "home/sass"),
 			"@auth": path.resolve(pagesRoot, "auth/sass"),
 		},

@@ -1,0 +1,34 @@
+@use "@sass-utils/variables";
+
+$section--min-height: 100svh;
+
+section.section {
+	display: flex;
+
+	&__container {
+		width: 100%;
+		flex: 1 1 100%;
+		padding: 0 var(--padding--responsive--300);
+
+		&[data-type="full"] {
+			min-height: $section--min-height;
+		}
+
+		&[data-type="wide"] {
+			margin: 0 auto;
+			max-width: variables.$max-width;
+		}
+
+		&[data-type="narrow"] {
+			min-height: calc($section--min-height / 2);
+		}
+
+		&[data-type="skew"] {
+			// TODO: Skew section
+		}
+
+		&[data-type="wavy"] {
+			// TODO: Wavy section
+		}
+	}
+}

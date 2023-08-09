@@ -3,6 +3,10 @@
 @use "@sass/animations";
 @use "@sass-utils/variables";
 
+alert-message:not(:defined) {
+	display: none;
+}
+
 .alert {
 	display: grid;
 	grid-template-columns: 15% 1fr 15%;
@@ -101,7 +105,7 @@
 }
 
 .alert {
-	&--info {
+	&[type="info"] {
 		$color--info: map.get(variables.$palette--alerts, blue);
 
 		--color--alert--100: #{map.get($color--info, 100)};
@@ -115,7 +119,7 @@
 		--color--alert--900: #{map.get($color--info, 900)};
 	}
 
-	&--success {
+	&[type="success"] {
 		$color--info: map.get(variables.$palette--alerts, green);
 
 		--color--alert--100: #{map.get($color--info, 100)};
@@ -129,7 +133,7 @@
 		--color--alert--900: #{map.get($color--info, 900)};
 	}
 
-	&--warning {
+	&[type="warning"] {
 		$color--info: map.get(variables.$palette--alerts, yellow);
 
 		--color--alert--100: #{map.get($color--info, 100)};
@@ -143,7 +147,7 @@
 		--color--alert--900: #{map.get($color--info, 900)};
 	}
 
-	&--error {
+	&[type="error"] {
 		$color--info: map.get(variables.$palette--alerts, red);
 
 		--color--alert--100: #{map.get($color--info, 100)};

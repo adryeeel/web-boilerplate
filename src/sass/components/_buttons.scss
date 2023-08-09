@@ -8,6 +8,7 @@
 @use "@sass-utils/functions";
 
 // TODO: Componentizar os botoes switch para JS.
+// TODO: Mudar modifiers para atributos "data-type".
 
 $color--button: map.get(variables.$palette--main, 500);
 $color--font: functions.get-font-color($color--button);
