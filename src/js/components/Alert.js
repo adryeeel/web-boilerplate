@@ -17,26 +17,6 @@ class AlertMessage extends HTMLComponent {
 		this.listen();
 	}
 
-	build() {
-		this.#template.innerHTML = this.style + this.markup;
-	}
-
-	render() {
-		this.classList.add("alert");
-		this.#shadowRoot.append(this.#template.content.cloneNode(true));
-	}
-
-	listen() {
-		// TODO: Animacao para fechar assim que o botao de fechar ]e clicacado. utilizar aria-hidden.
-		// TODO: ADD FA scripts to project
-		
-		const closeButton = this.#shadowRoot.querySelector(".alert__close__button");
-
-		closeButton.addEventListener("click", event => {
-			console.log("close");
-		});
-	}
-
 	validate() {
 		const validTypes = ["success", "info", "error", "warning"];
 
@@ -49,6 +29,56 @@ class AlertMessage extends HTMLComponent {
 		}
 
 		return true;
+	}
+
+	build() {
+		this.#template.innerHTML = this.style + this.markup;
+	}
+
+	render() {
+		this.classList.add("alert");
+		this.#shadowRoot.append(this.#template.content.cloneNode(true));
+	}
+
+	listen() {
+		this.selfRemove();
+		this.closeOnClick();
+	}
+
+	selfRemove() {
+		this.addEventListener("animationend", event => {
+			if (event.animationName != "slide-out-left") return;
+
+			this.remove();
+		});
+	}
+
+	closeOnClick() {
+		const closeButton = this.#shadowRoot.querySelector(".alert__close__button");
+
+		const closeEvent = (eventType, element) =>
+			new Promise(resolve => {
+				element.addEventListener(eventType, () => resolve());
+			});
+
+		closeEvent("click", closeButton)
+			.then(() => this.animateClose().finished)
+			.then(() => this.remove())
+			.catch(error => console.error(error));
+	}
+
+	animateClose() {
+		return this.animate(
+			[
+				{ translate: "0 0" }, 
+				{ translate: "-120% 0" }], 
+			{
+				name: "slide-out-left",
+				duration: 700,
+				fill: "forwards",
+				easing: "cubic-bezier(0.8, -0.5, 0.32, 1.275)",
+			}
+		);
 	}
 
 	get markup() {
@@ -64,7 +94,7 @@ class AlertMessage extends HTMLComponent {
 			success: "fa-circle-check",
 			info: "fa-circle-info",
 			warning: "fa-circle-exclamation",
-		}
+		};
 
 		const alertType = this.getAttribute("type");
 

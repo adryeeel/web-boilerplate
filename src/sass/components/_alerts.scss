@@ -42,6 +42,13 @@ alert-message:not(:defined) {
 		)
 	);
 
+	&[data-state="close"] {
+		@include animations.slide(
+			out left,
+			700ms map.get(variables.$timing-functions, "bounce-out") forwards
+		);
+	}
+
 	&::before {
 		content: "";
 
